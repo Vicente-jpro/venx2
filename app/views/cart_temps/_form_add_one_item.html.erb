@@ -1,0 +1,7 @@
+<%=form_with cart_temp, url: "/cart_temps/add_one_item", method: :post do |form| %>
+  
+    <%= form.hidden_field :id, value: cart_temp.id %>
+
+  <%= form.submit "+", class:"btn btn-info add_item" %>
+<% end %>
+

@@ -1,0 +1,21 @@
+<%=form_with(model: cart_temp) do |form| %>
+  <% if cart_temp.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(cart_temp.errors.count, "error") %> prohibited this cart_temp from being saved:</h2>
+
+      <ul>
+        <% cart_temp.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.number_field :quantity %>
+    <%= form.hidden_field :abandoned %>
+    <%= form.hidden_field :item_id %>
+
+    <div class="mb-3 d-grid gap-2">
+      <%= form.submit class: "btn btn-info" %>
+    </div>
+<% end %>

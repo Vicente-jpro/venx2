@@ -1,0 +1,29 @@
+<div class="col-lg-10 my-4" id="<%= dom_id supplier %>" >
+  <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <div class="card-body">
+        
+          <h4 class="text-center text-pink"> <%= supplier.name_supplier %></h4>
+        </div>
+          <div class="text-center my-2 text-primary-emphasis">
+              
+              <strong>Email:</strong>  <%= supplier.email %> <br>
+              <strong><%= Address.model_name.human(count: 1) %>: </strong> 
+                <%= supplier.address.street %>, 
+                <%= supplier.address.city.city_name %>,  
+                <%= supplier.address.city.province.province_name %>
+                <%= supplier.profile.name_profile %>
+                <br>
+
+              <strong><%= Supplier.human_attribute_name(:whatsapp) %>: <%= supplier.whatsapp %>
+              <strong><%= Supplier.human_attribute_name(:telephone) %>: <%= supplier.telephone %>
+        
+          </div>
+          <div class="mb-3 d-grid gap-2">
+              <%= link_to t("links.edit"), edit_supplier_path(supplier), class: "btn btn-info" %>
+              
+              <%= button_to "Destroy this supplier", supplier, method: :delete, class: "btn btn-danger col-sm-12"%> 
+          </div>
+    </div>
+</div>
+
+

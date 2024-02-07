@@ -45,11 +45,22 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+ gem "image_processing", "~> 1.2"
+ gem "bootstrap_form", "~> 5.4"
+ gem "devise", "~> 4.9"
+ gem 'devise-i18n', '~> 1.11'
+ gem 'rails-i18n', '~> 7.0.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+
+  gem "rspec-rails", "~> 6.1"
+  gem "factory_bot_rails", "~> 6.4"
+  gem "database_cleaner-active_record", "~> 2.1"
+  gem "rails-controller-testing", "~> 1.0"
+  gem 'rails_db', '~> 2.4', '>= 2.4.2' # -> Access via http://localhost:3000/rails/db
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 group :development do

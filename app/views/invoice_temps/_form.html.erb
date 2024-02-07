@@ -1,0 +1,22 @@
+
+<%= bootstrap_form_with(model: invoice_temp) do |form| %>
+  <% if invoice_temp.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(invoice_temp.errors.count, "error") %> prohibited this invoice_temp from being saved:</h2>
+
+      <ul>
+        <% invoice_temp.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.text_field :cliente_name %>
+    <%= form.text_field :value_delivered_customer %>
+    <%= form.select :payment_method, InvoiceTemp.payment_methods, class: 'text-light-emphasis' %>
+  
+    <div class="d-grid gap-2 my-1">
+    <%= form.submit "Finalizer venda", class:"btn btn-success"%>
+  </div>
+<% end %>

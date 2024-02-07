@@ -11,6 +11,23 @@
   </head>
 
   <body>
-    <%= yield %>
+    <main>
+      <% cache do %> 
+        <%= render 'layouts/sidebar' %>
+      <% end %> 
+
+      <div class="container">
+        <% cache do %> 
+          <%= render 'layouts/navbar' %>
+        <% end %> 
+
+        <%= render 'layouts/info' if info %>
+        <%= render 'layouts/message' if notice %>
+        <%= render 'layouts/alert' if alert %> 
+  
+        <%= yield %>
+      </div>
+    </main>
+    
   </body>
 </html>

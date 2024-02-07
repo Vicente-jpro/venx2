@@ -1,0 +1,171 @@
+
+<!-- Slide bar -->
+  <div class="flex-shrink-0 p-3 bg-white" style="width: 150px;">
+    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+      <span class="fs-5 fw-semibold">venx</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+
+      <% if user_signed_in? %>
+
+      <li class="mb-1">
+        
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#items-collapse" aria-expanded="true">
+          Items
+        </button>
+        <div class="collapse show" id="items-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li> 
+            <%= link_to "Add to cart", add_cart_items_path, 
+              class: "link-dark rounded"%> 
+          </li>
+           <li> 
+            <%= link_to "New...", new_item_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li> 
+            <%= link_to "List all", items_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li><a href="#" class="link-dark rounded">Mais vendidos</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#gestao-collapse" aria-expanded="true">
+          Gestão
+        </button>
+        <div class="collapse show" id="gestao-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded">Lucro</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#fatura-collapse" aria-expanded="true">
+          Fatura
+        </button>
+        <div class="collapse show" id="fatura-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded">Histórico</a></li>
+            <li><a href="#" class="link-dark rounded">Guardadas</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#company-collapse" aria-expanded="true">
+          Company
+        </button>
+        
+        <div class="collapse show" id="company-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li> 
+            <%= link_to "New...", new_company_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li> 
+            <%= link_to "List all", companies_path, 
+              class: "link-dark rounded"%> 
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+          Category
+        </button>
+        
+        <div class="collapse show" id="category-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li> 
+            <%= link_to "New...", new_category_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li> 
+            <%= link_to "List all", categories_path, 
+              class: "link-dark rounded"%> 
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sector-collapse" aria-expanded="true">
+          Sector
+        </button>
+        
+        <div class="collapse show" id="sector-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li> 
+            <%= link_to "New...", new_sector_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li> 
+            <%= link_to "List all", sectors_path, 
+              class: "link-dark rounded"%> 
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#fornecedor-collapse" aria-expanded="true">
+          Fornecedor
+        </button>
+        
+        <div class="collapse show" id="fornecedor-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li> 
+            <%= link_to "new...", new_supplier_path, 
+              class: "link-dark rounded"%> 
+          </li>
+            <li> 
+            <%= link_to "List all", suppliers_path, 
+              class: "link-dark rounded"%> 
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <p><a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Canselar venda</a></p>
+
+      </li>
+      <li class="border-top my-3"></li>
+
+      <% end %>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          Account
+        </button>
+        <div class="collapse" id="account-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <% if user_signed_in? %>
+             <li> <%= link_to t("navbar.profile"), new_profile_path, 
+             class: "link-dark rounded"%> </li>
+            <li> 
+              <%= link_to t("navbar.security"), edit_user_registration_path, 
+              class: "link-dark rounded"%> 
+            </li>
+            <li> 
+              <%= link_to t("devise.links.logout"), destroy_user_session_path,  method: :delete, 
+                class: "link-dark rounded" %> 
+            </li>
+          <% end %>
+      
+          <% if !user_signed_in? %>
+            
+            <li> <%= link_to t("devise.links.sign.in"), user_session_path, class: "link-dark rounded" %> </li>
+         
+          <% end %>
+          
+            <%= link_to t("devise.links.sign.up"), new_user_registration_path, class: "link-dark rounded" if !user_signed_in?%> 
+      
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+<!-- End Slide bar -->
+

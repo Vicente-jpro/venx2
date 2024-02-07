@@ -1,0 +1,33 @@
+<h5 class="fs-3 text-center">Sectors</h5>
+
+<!-- Itens escolhidos-->
+<section>
+  <div class="col-sm-6" id="sector">
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name sector</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          
+          <% @sectors.each do |sector| %>
+            <tr>
+              <%= render sector %>
+            </tr>
+          <% end %>
+
+          
+        </tbody>
+      </table>
+    </div>
+</section>
+   
+<!--Fim Itens escolhidos-->
+
+
+

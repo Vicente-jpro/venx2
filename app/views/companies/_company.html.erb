@@ -1,0 +1,28 @@
+<div class="container col-lg-10 my-4" id="<%= dom_id company %>" >
+  <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <div class="card-body">
+          <div class="card-title text-center">
+                 <%= render "image", image: company.image %>
+              </div>
+              <h4 class="text-center text-pink"><%= company.name %></h4>
+          </div>
+          <div class="text-center my-2 text-primary-emphasis">
+              
+              <strong>Email:</strong>  <%= company.email %> <br>
+              <strong><%= Address.model_name.human(count: 1) %>: </strong> 
+                <%= company.address.street %>, 
+                <%= company.address.city.city_name %>,  
+                <%= company.address.city.province.province_name %>
+                <br>
+
+              <strong><%= Company.human_attribute_name(:whatsapp) %>: <%= company.whatsapp %>
+              <strong><%= Company.human_attribute_name(:telephone) %>: <%= company.telephone %>
+        
+          </div>
+          <div class="mb-3 d-grid gap-2">
+              <%= link_to t("links.edit"), edit_profile_path(company), class: "btn btn-info" %> 
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

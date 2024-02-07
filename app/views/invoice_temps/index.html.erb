@@ -1,0 +1,100 @@
+
+  <section>
+    <h5 class="fs-3 text-center">Invoice temps</h5>
+
+        <div class="row">
+          <div class="col">
+            Desenvolvido pela adicionatec
+          </div>
+          <div class="col">
+            <p class="text-center">  
+              <img src="Java-Logo.jpg" alt="" srcset="" style="width: 200px; height: 100px;">
+            </p>
+            <p class="text-center">
+
+              Adicionatec <br/>
+              A sua empresa com excelencia
+         
+            </p>
+          </div>
+          <div class="col">
+          
+            <p>
+              <strong>Data:</strong>
+              <%= Time.zone.now.to_fs(:db) %>
+            </p>
+
+            <p>
+              <strong>Código Fatura</strong>
+              <%= @invoice_temps.first.cart_historic.code_cart %>
+            </p>
+
+            <p>
+              <strong>Cliente name:</strong>
+              <%= @invoice_temps.first.cliente_name %>
+            </p>
+
+            <p>
+              <strong>Payment method:</strong>
+              <%= @invoice_temps.first.payment_method %>
+            </p>
+
+            <p>
+              <strong>Atendente:</strong>
+              <%= @invoice_temps.first.profile.name_profile %>
+            </p>
+          </div>
+        
+        </div>
+    <br/>
+
+
+    <button onclick="printPage()">Print This Page</button>
+
+    <script>
+    function printPage() {
+        window.print();
+    }
+    </script>
+
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Descrição</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">P.Unitário</th>
+            <th scope="col">IVA</th>
+            <th scope="col">Sub.Total</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <div id="invoice_temps">
+            <% @invoice_temps.each do |invoice_temp| %>
+              <%= render invoice_temp %>
+            <% end %>
+          </div>
+
+          </div>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col-sm-4 fs-4">
+            <strong>Total:</strong> <%= @invoice_temps.first.total %> <br/>
+            <strong>Valor entregue:</strong>  <%= @invoice_temps.first.value_delivered_customer %> <br/>
+            <strong class="text-success">Troco:</strong> <%= @invoice_temps.first.customer_change %><br/>
+        </div>
+      </div>
+
+  </section>
+
+  <!-- Fim Itens index-->
+
+
