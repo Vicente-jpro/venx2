@@ -11,23 +11,28 @@
   </head>
 
   <body>
+  <% if !(controller_name.to_s == "invoice_temps") %>  
     <main>
-      <% cache do %> 
-        <%= render 'layouts/sidebar' %>
-      <% end %> 
-
-      <div class="container">
         <% cache do %> 
-          <%= render 'layouts/navbar' %>
+          <%= render 'layouts/sidebar' %>
         <% end %> 
 
-        <%= render 'layouts/info' if info %>
-        <%= render 'layouts/message' if notice %>
-        <%= render 'layouts/alert' if alert %> 
-  
+        <div class="container">
+          <% cache do %> 
+            <%= render 'layouts/navbar' %>
+          <% end %> 
+
+          <%= render 'layouts/info' if info %>
+          <%= render 'layouts/message' if notice %>
+          <%= render 'layouts/alert' if alert %> 
+      
         <%= yield %>
       </div>
     </main>
-    
+    <% else %>
+      <div class="container-fluid">
+         <%= yield %>
+      </div>
+    <% end %>
   </body>
 </html>

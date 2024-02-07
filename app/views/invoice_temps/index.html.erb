@@ -1,6 +1,8 @@
 
   <section>
-    <h5 class="fs-3 text-center">Invoice temps</h5>
+    <h5 class="fs-3 text-center"> 
+      <%= link_to "Invoice temps", root_path %> 
+      </h5>
 
         <div class="row">
           <div class="col">
@@ -49,11 +51,12 @@
     <br/>
 
 
-    <button onclick="printPage()">Print This Page</button>
+    <button onclick="printPage()", class="btn btn-light print">Print</button>
 
     <script>
     function printPage() {
         window.print();
+
     }
     </script>
 
