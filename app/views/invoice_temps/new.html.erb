@@ -1,0 +1,52 @@
+
+
+
+  <section>
+    <h5 class="fs-3 text-center">New invoice</h5>
+    <div class="row">
+      <div class="col-sm-4">
+        <p class="fs-4 text-success">
+          <strong>Total:</strong> <span class="total"><%=  @total_cost %></span> 
+        </p>
+        <br/>
+        <br/>
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+        <%= render "form", invoice_temp: @invoice_temp %>
+      </div>
+
+    </div>
+  
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Nome/Descrição</th>
+            <th scope="col">Q.Stock</th>
+            <th scope="col">P.Unitário</th>
+            <th scope="col">Sub.Total</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Sector</th>
+            <th scope="col">V.Pagar</th>
+            <th scope="col">Lucro</th>
+            <th scope="col">D.Expiracao</th>
+            <th scope="col">Abandoned</th>
+            <th scope="col">Acrescentar</th>
+            <th scope="col">Diminuir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div id="cart_temps">
+            <% @cart_temps.each do |cart_temp| %>
+              <%= render cart_temp %>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
+
+  </section>
+
+  <!-- Fim Itens index-->

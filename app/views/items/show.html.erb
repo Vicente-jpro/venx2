@@ -1,0 +1,43 @@
+    
+    <!-- Itens index-->
+    <h5 class="fs-3 text-center">Item</h5>
+
+    <section>
+
+      <div class="d-grid gap-2 col-sm-15 my-1">
+          <button class="btn btn-warning" type="button">Continuar com a venda</button>
+      </div>
+
+      <table class="table table-hover shadow-sm">
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Nome/Descrição</th>
+              <th scope="col">Q.Stock</th>
+              <th scope="col">Taxa</th>
+              <th scope="col">P.Unitário</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Sector</th>
+              <th scope="col">V.Pagar</th>
+              <th scope="col">Lucro</th>
+              <th scope="col">Fornecedor</th>
+              <th scope="col">Profile</th>
+              <th scope="col">D.Cadastro</th>
+              <th scope="col">D.Fabricação</th>
+              <th scope="col">D.Expiracao</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <%= render @item %>
+            </tr>
+          </tbody>
+        </table>
+
+    </section>
+
+    <!-- Fim Itens index-->
+
+

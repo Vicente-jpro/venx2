@@ -1,0 +1,9 @@
+
+  <th scope="row"><%= sector.id %></th>
+  <td><%= sector.name_sector %></td>     
+  <td>
+    <%= button_to "Destroy", sector, method: :delete, class:"btn btn-danger btn-sm" %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_sector_path(sector), class:"btn btn-success btn-sm" %>
+  </td>

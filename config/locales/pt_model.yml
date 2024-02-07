@@ -1,0 +1,45 @@
+# available at https://guides.rubyonrails.org/i18n.html.
+# Translate enum in rails
+# https://stackoverflow.com/questions/22827270/rails-how-to-use-i18n-with-rails-4-enums
+pt:
+  activerecord:
+    models:
+      address: 
+        one: Endereço
+        other: Endereços
+      city:  
+        one: Cidade/Munícipio
+        other: Cidades
+      profile: 
+        one: Perfil
+        other: Perfis
+      province: 
+        one: Província
+        other: Provincias
+      user: 
+        one: Usuário
+        other: Usuários
+    attributes:
+      address:
+        street: Endereço (rua, bairro, apartamento)
+        city: Cidade/Munícipio
+      city: 
+        city_name: Cidade/Munícipio
+        province: província
+        provincia_id: Id da provincia
+      profile:
+        name_profile: Nome do perfil
+        image: Imagem
+        address: Endereço 
+        address_id: Id do endereço
+        gender: Genero
+        telephone: Telemóvel
+        whatsapp: Whatsapp
+        profile_type: Tipo de perfil
+        user: Usuário
+        identity_card: Cartão de identidade nacional
+        user_id: Id do usuário
+      provinces:
+        province_name: Nome da provincia
+
+  

@@ -1,0 +1,12 @@
+<div id="<%= dom_id category %>">
+
+  <th scope="row"><%= category.id %></th>
+  <td><%= category.name_category %></td>     
+  <td>
+    <%= button_to "Destroy", category, method: :delete, class:"btn btn-danger btn-sm" %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_category_path(category), class:"btn btn-success btn-sm" %>
+  </td>
+
+</div>

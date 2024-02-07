@@ -1,0 +1,2 @@
+module CartTempsHelper
+end
