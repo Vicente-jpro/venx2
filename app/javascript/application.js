@@ -2,7 +2,8 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
-
+import "./custom"
+import "./sidebars"
 import jquery from "jquery"
 
 window.jQuery = jquery 

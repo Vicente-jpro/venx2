@@ -1,4 +1,4 @@
-alert("Hello")
+
 $(document).ready(function(){
 
   // Fist select
