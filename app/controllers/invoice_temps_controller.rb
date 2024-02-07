@@ -3,7 +3,12 @@ class InvoiceTempsController < ApplicationController
   before_action :authenticate_user!
   # GET /invoice_temps or /invoice_temps.json
   def index
-    @invoice_temps = InvoiceTemp.find_by_cart_historic(CartHistoric.last)
+    cart_historic = CartHistoric.last
+    if cart_historic.present?
+      @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
+    else 
+      redirect_to cart_temps_path
+    end
   end
 
   # GET /invoice_temps/1 or /invoice_temps/1.json
