@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Invoice historics</h1>
+
+<div id="invoice_historics">
+  <% @invoice_historics.each do |invoice_historic| %>
+    <%= render invoice_historic %>
+    <p>
+      <%= link_to "Show this invoice historic", invoice_historic %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New invoice historic", new_invoice_historic_path %>
