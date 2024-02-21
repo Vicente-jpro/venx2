@@ -39,9 +39,9 @@ class InvoiceTempsController < ApplicationController
       else 
         @cart_temps = CartTemp.all
 
-        
         code = GenerateCode.generate
         profile ||= Profile.find_by_user(current_user)
+
         @cart_temps.each do |cart| 
 
           cart_historic = CartHistoric.new
