@@ -8,6 +8,4 @@ class CartTemp < ApplicationRecord
             .sum("price*cart_temps.quantity")
   end
 
-  # SELECT sum(price) FROM cart_temps
-	# JOIN items ON items.id = cart_temps.item_id;
 end

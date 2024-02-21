@@ -3,7 +3,9 @@ class InvoiceTempsController < ApplicationController
   before_action :authenticate_user!
   # GET /invoice_temps or /invoice_temps.json
   def index
-    cart_historic = CartHistoric.last
+    profile ||= Profile.find_by_user(current_user)
+    
+    cart_historic = CartHistoric.find_last_by_profile(profile)
     if cart_historic.present?
       @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
     else 
@@ -32,35 +34,47 @@ class InvoiceTempsController < ApplicationController
     @total_cost = CartTemp.total_cost 
     value_delivered_customer = invoice_temp.value_delivered_customer
 
-
     respond_to do |format|
       if value_delivered_customer < @total_cost
         format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
       else 
         @cart_temps = CartTemp.all
 
-     
         code = GenerateCode.generate
+        profile ||= Profile.find_by_user(current_user)
+
         @cart_temps.each do |cart| 
+
           cart_historic = CartHistoric.new
           cart_historic.item = cart.item
           cart_historic.quantity = cart.quantity
           cart_historic.abandoned = false
           cart_historic.code_cart = code
+          cart_historic.profile = profile
           cart_historic.save
-
+          debugger
           @invoice_temp = InvoiceTemp.new
           @invoice_temp.cliente_name = invoice_temp.cliente_name
           @invoice_temp.value_delivered_customer = invoice_temp.value_delivered_customer
           @invoice_temp.payment_method = invoice_temp.payment_method 
-          @invoice_temp.profile ||= Profile.find_by_user(current_user)
+          @invoice_temp.profile = profile
           @invoice_temp.total = @total_cost
           @invoice_temp.customer_change = value_delivered_customer - @total_cost
-          
-
-          @invoice_temp.cart_historic = CartHistoric.where(item_id: cart_historic.item_id).take
+          @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic, profile)
+          debugger
           @invoice_temp.sub_total = cart.quantity * cart.item.price
           @invoice_temp.save
+
+          @invoice_historic = InvoiceHistoric.new
+          @invoice_historic.cliente_name = invoice_temp.cliente_name
+          @invoice_historic.value_delivered_customer = invoice_temp.value_delivered_customer
+          @invoice_historic.payment_method = invoice_temp.payment_method 
+          @invoice_historic.profile ||=  @invoice_temp.profile
+          @invoice_historic.total = @total_cost
+          @invoice_historic.customer_change =  @invoice_temp.customer_change 
+          @invoice_historic.cart_historic = @invoice_temp.cart_historic
+          @invoice_historic.sub_total = @invoice_temp.sub_total
+          @invoice_historic.save
         end
        
         format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }

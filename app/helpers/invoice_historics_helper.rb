@@ -1,0 +1,2 @@
+module InvoiceHistoricsHelper
+end

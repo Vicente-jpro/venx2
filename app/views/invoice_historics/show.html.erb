@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @invoice_historic %>
+
+<div>
+  <%= link_to "Edit this invoice historic", edit_invoice_historic_path(@invoice_historic) %> |
+  <%= link_to "Back to invoice historics", invoice_historics_path %>
+
+  <%= button_to "Destroy this invoice historic", @invoice_historic, method: :delete %>
+</div>

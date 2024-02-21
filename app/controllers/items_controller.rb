@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.profile ||= Profile.find_by_user(current_user)
-    @item.price = @item.price + (@item.price * 0.14) #Teaxa do iva
+    @item.price = @item.price + (@item.price * 0.14) + @item.profite_value #Teaxa do iva
 
     respond_to do |format|
       if @item.save
@@ -73,6 +73,18 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:description, :manufacturing_date, :expiration_date, :quantity, :price, :tax, :item_code, :profite_value, :supplier_id, :category_id, :sector_id)
+      params.require(:item).permit(
+        :description, 
+        :manufacturing_date, 
+        :expiration_date, 
+        :quantity, 
+        :price, 
+        :tax, 
+        :item_code, 
+        :profite_value, 
+        :supplier_id, 
+        :category_id, 
+        :sector_id
+      )
     end
 end
