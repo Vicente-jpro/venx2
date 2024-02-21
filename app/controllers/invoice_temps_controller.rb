@@ -41,22 +41,25 @@ class InvoiceTempsController < ApplicationController
 
         
         code = GenerateCode.generate
+        profile ||= Profile.find_by_user(current_user)
         @cart_temps.each do |cart| 
+
           cart_historic = CartHistoric.new
           cart_historic.item = cart.item
           cart_historic.quantity = cart.quantity
           cart_historic.abandoned = false
           cart_historic.code_cart = code
+          cart_historic.profile ||= profile
           cart_historic.save
   
           @invoice_temp = InvoiceTemp.new
           @invoice_temp.cliente_name = invoice_temp.cliente_name
           @invoice_temp.value_delivered_customer = invoice_temp.value_delivered_customer
           @invoice_temp.payment_method = invoice_temp.payment_method 
-          @invoice_temp.profile ||= Profile.find_by_user(current_user)
+          @invoice_temp.profile ||= profile
           @invoice_temp.total = @total_cost
           @invoice_temp.customer_change = value_delivered_customer - @total_cost
-          @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic)
+          @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic, profile)
           
           @invoice_temp.sub_total = cart.quantity * cart.item.price
           @invoice_temp.save
