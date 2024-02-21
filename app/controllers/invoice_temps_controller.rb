@@ -3,7 +3,9 @@ class InvoiceTempsController < ApplicationController
   before_action :authenticate_user!
   # GET /invoice_temps or /invoice_temps.json
   def index
-    cart_historic = CartHistoric.last
+    profile ||= Profile.find_by_user(current_user)
+    
+    cart_historic = CartHistoric.find_last_by_profile(profile)
     if cart_historic.present?
       @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
     else 
@@ -32,7 +34,6 @@ class InvoiceTempsController < ApplicationController
     @total_cost = CartTemp.total_cost 
     value_delivered_customer = invoice_temp.value_delivered_customer
 
-
     respond_to do |format|
       if value_delivered_customer < @total_cost
         format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
@@ -49,18 +50,18 @@ class InvoiceTempsController < ApplicationController
           cart_historic.quantity = cart.quantity
           cart_historic.abandoned = false
           cart_historic.code_cart = code
-          cart_historic.profile ||= profile
+          cart_historic.profile = profile
           cart_historic.save
-  
+          debugger
           @invoice_temp = InvoiceTemp.new
           @invoice_temp.cliente_name = invoice_temp.cliente_name
           @invoice_temp.value_delivered_customer = invoice_temp.value_delivered_customer
           @invoice_temp.payment_method = invoice_temp.payment_method 
-          @invoice_temp.profile ||= profile
+          @invoice_temp.profile = profile
           @invoice_temp.total = @total_cost
           @invoice_temp.customer_change = value_delivered_customer - @total_cost
           @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic, profile)
-          
+          debugger
           @invoice_temp.sub_total = cart.quantity * cart.item.price
           @invoice_temp.save
 

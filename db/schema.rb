@@ -48,13 +48,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
   end
 
   create_table "cart_historics", force: :cascade do |t|
-    t.integer "item_id", null: false
     t.integer "quantity"
     t.boolean "abandoned", default: false
     t.string "code_cart"
+    t.integer "profile_id", null: false
+    t.integer "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_cart_historics_on_item_id"
+    t.index ["profile_id"], name: "index_cart_historics_on_profile_id"
   end
 
   create_table "cart_temps", force: :cascade do |t|
@@ -197,6 +199,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "cities"
   add_foreign_key "cart_historics", "items"
+  add_foreign_key "cart_historics", "profiles"
   add_foreign_key "cart_temps", "items"
   add_foreign_key "cities", "provinces"
   add_foreign_key "companies", "addresses"

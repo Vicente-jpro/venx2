@@ -5,7 +5,8 @@ class Profile < ApplicationRecord
 
   has_many :items
   has_many :invoice_temps
-
+  has_many :invoice_historic
+  
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [140, 140]
   end
