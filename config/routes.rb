@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     collection do 
       get 'cart_abandoned'
+      get 'cancel'
     end
   end
   resources :items do 

@@ -21,7 +21,8 @@
           <div class="mb-3 d-grid gap-2">
               <%= link_to t("links.edit"), edit_supplier_path(supplier), class: "btn btn-info" %>
               
-              <%= button_to "Destroy this supplier", supplier, method: :delete, class: "btn btn-danger col-sm-12"%> 
+              <%= button_to "Destroy this supplier", supplier, method: :delete, class: "btn btn-danger col-sm-12",
+              form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este fornecedor?"} } %> 
           </div>
     </div>
 </div>

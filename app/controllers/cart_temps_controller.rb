@@ -12,6 +12,25 @@ class CartTempsController < ApplicationController
     @total_cost = CartTemp.total_cost
   end
 
+  def cancel 
+    @cart_temps = CartTemp.all
+   
+    respond_to do |format|
+      if @cart_temps.empty?
+        format.html { redirect_to cart_temps_url, info: "There is no purchase to be cancelled." }
+      else
+        @cart_temps.each do |cart| 
+
+          item = cart.item
+          item.quantity += cart.quantity
+          item.update(item.as_json)
+        end
+    
+        format.html { redirect_to cart_temps_url, notice: "Purchase canceled successfully." }
+        @cart_temps.destroy_all 
+      end
+    end  
+  end
   # GET /cart_temps/1 or /cart_temps/1.json
   def show
   end

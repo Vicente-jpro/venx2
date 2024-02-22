@@ -52,7 +52,7 @@ class InvoiceTempsController < ApplicationController
           cart_historic.code_cart = code
           cart_historic.profile = profile
           cart_historic.save
-          debugger
+          
           @invoice_temp = InvoiceTemp.new
           @invoice_temp.cliente_name = invoice_temp.cliente_name
           @invoice_temp.value_delivered_customer = invoice_temp.value_delivered_customer
@@ -61,7 +61,6 @@ class InvoiceTempsController < ApplicationController
           @invoice_temp.total = @total_cost
           @invoice_temp.customer_change = value_delivered_customer - @total_cost
           @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic, profile)
-          debugger
           @invoice_temp.sub_total = cart.quantity * cart.item.price
           @invoice_temp.save
 

@@ -2,7 +2,8 @@
   <th scope="row"><%= sector.id %></th>
   <td><%= sector.name_sector %></td>     
   <td>
-    <%= button_to "Destroy", sector, method: :delete, class:"btn btn-danger btn-sm" %>
+    <%= button_to "Destroy", sector, method: :delete, class:"btn btn-danger btn-sm",
+    form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
   </td>
   <td>
     <%= link_to "Edit", edit_sector_path(sector), class:"btn btn-success btn-sm" %>
