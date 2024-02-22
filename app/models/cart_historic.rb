@@ -17,14 +17,6 @@ class CartHistoric < ApplicationRecord
                 .where("profiles.id = #{profile.id}")
                 .order("cart_historics.id")
                 .last
-
   end
-
-  # SELECT * FROM cart_historics 
-	# JOIN profiles
-  #   ON profiles.id = cart_historics.profile_id
-  #   WHERE profiles.id = 1
-  #   ORDER BY cart_historics.id DESC LIMIT 1;
-
 
 end
