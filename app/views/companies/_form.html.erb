@@ -16,8 +16,9 @@
           </div>
         <% end %>
 
-          <%= form.text_field :name %>
+          <%= form.text_field :name %> 
           <%= form.file_field :image %>
+          <%= form.text_field :nif %> 
           <%= form.email_field :email %>
           <%= form.telephone_field :whatsapp, label: Profile.human_attribute_name(:whatsapp), 
               class: 'text-light-emphasis' %>
