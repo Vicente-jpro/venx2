@@ -11,6 +11,8 @@
               <strong> <%= Profile.human_attribute_name(:gender) %>:</strong> <%= profile.gender %> <br>
               <strong>Email:</strong>  <%= profile.user.email %> <br>
               <strong><%= Profile.human_attribute_name(:profile_type) %>:</strong> <%= profile.profile_type   %> <br>
+              <strong><%= Profile.human_attribute_name(:company) %>:</strong> <%= profile.company.name   %> <br>
+        
               <strong><%= Address.model_name.human(count: 1) %>: </strong> 
                 <%= profile.address.street %>, 
                 <%= profile.address.city.city_name %>,  

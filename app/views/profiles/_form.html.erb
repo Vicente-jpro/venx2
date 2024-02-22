@@ -42,7 +42,10 @@
               <%= form.telephone_field :identity_card, label: Profile.human_attribute_name(:identity_card), 
               class: 'text-light-emphasis' %>
              
-             
+              <%= form.collection_select :company_id, Company.order(:name), :id, :name, 
+              { label: Company.model_name.human(count: 1) }, 
+              {class:"province province_select text-light-emphasis"} %> 
+
               <%= form.collection_select :province_id, Province.order(:province_name), :id, :province_name, 
               { label: Province.model_name.human(count: 1) }, 
               {class:"province province_select text-light-emphasis"} %> 

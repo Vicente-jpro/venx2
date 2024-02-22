@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
     t.string "whatsapp"
     t.string "telephone"
     t.string "email"
+    t.string "nif"
     t.integer "address_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -154,7 +155,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
     t.datetime "updated_at", null: false
     t.integer "address_id", null: false
     t.string "gender"
+    t.integer "company_id", default: 1, null: false
     t.index ["address_id"], name: "index_profiles_on_address_id"
+    t.index ["company_id"], name: "index_profiles_on_company_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -212,6 +215,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_102329) do
   add_foreign_key "items", "sectors"
   add_foreign_key "items", "suppliers"
   add_foreign_key "profiles", "addresses"
+  add_foreign_key "profiles", "companies"
   add_foreign_key "profiles", "users"
   add_foreign_key "suppliers", "addresses"
   add_foreign_key "suppliers", "profiles"

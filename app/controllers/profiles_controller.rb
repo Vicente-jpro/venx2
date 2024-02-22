@@ -100,6 +100,7 @@ class ProfilesController < ApplicationController
         :gender,
         :image,
         :identity_card,
+        :company_id,
         address_attributes: [:id, :street, :city_id, :_destroy] 
       )
     end

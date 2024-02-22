@@ -24,10 +24,6 @@
               class: 'text-light-emphasis' %>
           <%= form.telephone_field :telephone, label: Profile.human_attribute_name(:telephone), 
           class: 'text-light-emphasis' %>
-
-          <%= form.telephone_field :identity_card, label: Profile.human_attribute_name(:identity_card), 
-          class: 'text-light-emphasis' %>
-          
           
           <%= form.collection_select :province_id, Province.order(:province_name), :id, :province_name, 
           { label: Province.model_name.human(count: 1) }, 

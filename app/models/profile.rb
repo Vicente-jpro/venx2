@@ -1,6 +1,8 @@
 class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :address
+  belongs_to :company
+  
   accepts_nested_attributes_for :address, allow_destroy: true
 
   has_many :items

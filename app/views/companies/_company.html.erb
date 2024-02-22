@@ -8,6 +8,7 @@
           </div>
           <div class="text-center my-2 text-primary-emphasis">
               
+              <strong><%= Company.human_attribute_name(:nif) %>:</strong> <%= company.nif %><br>
               <strong>Email:</strong>  <%= company.email %> <br>
               <strong><%= Address.model_name.human(count: 1) %>: </strong> 
                 <%= company.address.street %>, 
@@ -15,8 +16,10 @@
                 <%= company.address.city.province.province_name %>
                 <br>
 
-              <strong><%= Company.human_attribute_name(:whatsapp) %>: <%= company.whatsapp %>
-              <strong><%= Company.human_attribute_name(:telephone) %>: <%= company.telephone %>
+              <strong>
+                <%= Company.human_attribute_name(:whatsapp) %>: <%= company.whatsapp %>,
+                <%= Company.human_attribute_name(:telephone) %>: <%= company.telephone %>
+              </strong>
         
           </div>
           <div class="mb-3 d-grid gap-2">
