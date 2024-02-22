@@ -1,6 +1,10 @@
 class InvoiceTempsController < ApplicationController
   before_action :set_invoice_temp, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+
+  include InvoiceTempsConcerns
+
+
   # GET /invoice_temps or /invoice_temps.json
   def index
     profile ||= Profile.find_by_user(current_user)
@@ -45,23 +49,18 @@ class InvoiceTempsController < ApplicationController
 
         @cart_temps.each do |cart| 
 
-          cart_historic = CartHistoric.new
-          cart_historic.item = cart.item
-          cart_historic.quantity = cart.quantity
-          cart_historic.abandoned = false
-          cart_historic.code_cart = code
-          cart_historic.profile = profile
+          cart_historic = cart_historic_build(cart, code, profile)
           cart_historic.save
           
-          @invoice_temp = InvoiceTemp.new
-          @invoice_temp.cliente_name = invoice_temp.cliente_name
-          @invoice_temp.value_delivered_customer = invoice_temp.value_delivered_customer
-          @invoice_temp.payment_method = invoice_temp.payment_method 
-          @invoice_temp.profile = profile
-          @invoice_temp.total = @total_cost
-          @invoice_temp.customer_change = value_delivered_customer - @total_cost
-          @invoice_temp.cart_historic = CartHistoric.find_by_cart_historic(cart_historic, profile)
-          @invoice_temp.sub_total = cart.quantity * cart.item.price
+          @invoice_temp = invoice_temp_build(
+            invoice_temp, 
+            profile, 
+            value_delivered_customer,
+            @total_cost,
+            cart_historic,
+            cart
+          )
+
           @invoice_temp.save
 
           @invoice_historic = InvoiceHistoric.new
@@ -78,7 +77,7 @@ class InvoiceTempsController < ApplicationController
        
         format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
 
-       # CartTemp.destroy_all
+        # CartTemp.destroy_all
       end
     end
 
