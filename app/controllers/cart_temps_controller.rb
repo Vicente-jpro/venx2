@@ -8,12 +8,12 @@ class CartTempsController < ApplicationController
 
   # GET /cart_temps or /cart_temps.json
   def index
-    @cart_temps = CartTemp.all
+    @cart_temps = CartTemp.find_by_current_user(current_user)
     @total_cost = CartTemp.total_cost
   end
 
   def cancel 
-    @cart_temps = CartTemp.all
+    @cart_temps = CartTemp.find_by_current_user(current_user)
    
     respond_to do |format|
       if @cart_temps.empty?
