@@ -1,14 +1,36 @@
-<p style="color: green"><%= notice %></p>
+  <section>
+    <h5 class="fs-3 text-center">Historic panel</h5>
 
-<h1>Invoice historics</h1>
+    <br/>
 
-<div id="invoice_historics">
-  <% @invoice_historics.each do |invoice_historic| %>
-    <%= render invoice_historic %>
-    <p>
-      <%= link_to "Show this invoice historic", invoice_historic %>
-    </p>
-  <% end %>
-</div>
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Código Fatura</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Item</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+          <div id="invoice_historics">
+            <!--Não mostrar as faturas repetidas-->
+            <% code_cart = "" %>
+            <% @invoice_historics.each do |invoice_historic| %>
+               <% if code_cart != invoice_historic.cart_historic.code_cart %>
+                  <%= render invoice_historic %>
+               <% end %>
+               <% 
+               code_cart = invoice_historic.cart_historic.code_cart  
+               %>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
 
-<%= link_to "New invoice historic", new_invoice_historic_path %>
+  </section>
+
+  <!-- Fim Itens index-->
+
+

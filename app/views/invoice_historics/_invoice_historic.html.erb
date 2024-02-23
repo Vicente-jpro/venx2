@@ -1,42 +1,14 @@
-<div id="<%= dom_id invoice_historic %>">
-  <p>
-    <strong>Cliente name:</strong>
-    <%= invoice_historic.cliente_name %>
-  </p>
-
-  <p>
-    <strong>Total:</strong>
-    <%= invoice_historic.total %>
-  </p>
-
-  <p>
-    <strong>Sub total:</strong>
-    <%= invoice_historic.sub_total %>
-  </p>
-
-  <p>
-    <strong>Value delivered customer:</strong>
-    <%= invoice_historic.value_delivered_customer %>
-  </p>
-
-  <p>
-    <strong>Customer change:</strong>
-    <%= invoice_historic.customer_change %>
-  </p>
-
-  <p>
-    <strong>Payment method:</strong>
-    <%= invoice_historic.payment_method %>
-  </p>
-
-  <p>
-    <strong>Profile:</strong>
-    <%= invoice_historic.profile_id %>
-  </p>
-
-  <p>
-    <strong>Cart historic:</strong>
-    <%= invoice_historic.cart_historic_id %>
-  </p>
-
-</div>
+  <tr>
+    <div id="<%= dom_id invoice_historic %>">
+      <th scope="row"><%= invoice_historic.cart_historic.code_cart %></th>
+      <td scope="col"><%= invoice_historic.cliente_name %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.description %></td>
+      <td>
+         <%= link_to "Show", invoice_historic, class: "btn btn-info" %>
+      </td>
+      <td>
+        <%= button_to "Delete", invoice_historic, method: :delete, class:"btn btn-danger",
+        form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
+      </td>
+    </div>
+  </tr>

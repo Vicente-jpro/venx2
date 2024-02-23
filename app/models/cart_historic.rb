@@ -3,6 +3,7 @@ class CartHistoric < ApplicationRecord
   belongs_to :profile
 
   has_many :invoice_temps
+  has_many :invoice_historics
 
   def self.find_by_cart_historic(cart_historic, profile)
      CartHistoric.where(
@@ -17,6 +18,13 @@ class CartHistoric < ApplicationRecord
                 .where("profiles.id = #{profile.id}")
                 .order("cart_historics.id")
                 .last
+  end
+
+  def self.total_cost(cart_historic)
+    CartHistoric.joins("JOIN items ON items.id = cart_historics.item_id")
+    .where(code_cart: cart_historic.code_cart)
+            .sum("price*cart_historics.quantity")
+            
   end
 
 end

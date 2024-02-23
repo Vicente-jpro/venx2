@@ -8,6 +8,8 @@ class InvoiceHistoricsController < ApplicationController
 
   # GET /invoice_historics/1 or /invoice_historics/1.json
   def show
+    @invoice_historics = InvoiceHistoric.find_by_cart_historic(@invoice_historic)
+    @total_cost = CartHistoric.total_cost(@invoice_historic.cart_historic)
   end
 
   # GET /invoice_historics/new
