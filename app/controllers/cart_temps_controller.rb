@@ -101,6 +101,8 @@ class CartTempsController < ApplicationController
     respond_to do |format|
       if item_out_of_stock?(item) # Item esgotado do stock
         format.html { redirect_to cart_temps_url, alert: "Item out of stock" }
+      elsif item_in_cart.quantity == 1
+        format.html { redirect_to cart_temps_url, alert: "Impossible to remove the item." }
       else
         item_in_cart.quantity -= 1
         item_in_cart.update(item_in_cart.as_json)

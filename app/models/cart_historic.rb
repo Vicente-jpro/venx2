@@ -3,6 +3,7 @@ class CartHistoric < ApplicationRecord
   belongs_to :profile
 
   has_many :invoice_temps
+  has_many :invoice_historics
 
   def self.find_by_cart_historic(cart_historic, profile)
      CartHistoric.where(
