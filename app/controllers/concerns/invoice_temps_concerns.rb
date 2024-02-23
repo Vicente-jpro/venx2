@@ -24,4 +24,17 @@ module InvoiceTempsConcerns
     @invoice_temp.sub_total = cart.quantity * cart.item.price
     @invoice_temp
   end
+
+  def invoice_historic_build(invoice_temp, profile, total_cost) 
+    @invoice_historic = InvoiceHistoric.new
+    @invoice_historic.cliente_name = invoice_temp.cliente_name
+    @invoice_historic.value_delivered_customer = invoice_temp.value_delivered_customer
+    @invoice_historic.payment_method = invoice_temp.payment_method 
+    @invoice_historic.profile ||= profile
+    @invoice_historic.total = @total_cost
+    @invoice_historic.customer_change =  @invoice_temp.customer_change 
+    @invoice_historic.cart_historic = @invoice_temp.cart_historic
+    @invoice_historic.sub_total = @invoice_temp.sub_total
+    @invoice_historic
+  end
 end
