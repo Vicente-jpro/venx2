@@ -23,7 +23,7 @@
           
             <p>
               <strong>Data:</strong>
-              <%= Time.zone.now.to_fs(:db) %>
+              <%= @invoice_temps.first.created_at.strftime("%B %d %Y, %H:%M:%S")%>
             </p>
 
             <p>
