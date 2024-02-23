@@ -4,7 +4,8 @@ class CreateCartTemps < ActiveRecord::Migration[7.0]
       t.integer :quantity
       t.boolean :abandoned, default: true
       t.references :item, null: false, foreign_key: true
-
+      t.references :profile, null: false, foreign_key: true
+      
       t.timestamps
     end
   end

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root "home#index"
+  
   resources :invoice_historics
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -33,9 +36,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 
   devise_scope :user do
-    post '/users/sign_out', to: 'devise/sessions#destroy'
+    get '/users/sign_out', to: 'devise/sessions#destroy'
   end
 
   
-  root "home#index"
 end

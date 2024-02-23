@@ -50,7 +50,8 @@ class CartTempsController < ApplicationController
     @cart_temp = CartTemp.new(cart_temp_params)
     item_exist = CartTemp.find_by(item_id: @cart_temp.item_id)
     item = Item.find(@cart_temp.item_id)
-
+    @cart_temp.profile ||= Profile.find_by_user(current_user)
+    debugger
     respond_to do |format|
       if item_exist
         format.html { redirect_to add_cart_items_url, alert: "The item #{item.description} just exit in cart." }
