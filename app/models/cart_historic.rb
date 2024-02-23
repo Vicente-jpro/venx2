@@ -20,4 +20,11 @@ class CartHistoric < ApplicationRecord
                 .last
   end
 
+  def self.total_cost(cart_historic)
+    CartHistoric.joins("JOIN items ON items.id = cart_historics.item_id")
+    .where(code_cart: cart_historic.code_cart)
+            .sum("price*cart_historics.quantity")
+            
+  end
+
 end
