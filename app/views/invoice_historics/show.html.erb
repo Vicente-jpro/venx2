@@ -1,10 +1,70 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @invoice_historic %>
-
-<div>
-  <%= link_to "Edit this invoice historic", edit_invoice_historic_path(@invoice_historic) %> |
-  <%= link_to "Back to invoice historics", invoice_historics_path %>
 
   <%= button_to "Destroy this invoice historic", @invoice_historic, method: :delete %>
-</div>
+  <section>
+    <h5 class="fs-3 text-center">Historic panel</h5>
+    <div class="row">
+      <div class="col-sm-4 fs-4 text-success">
+        <strong>Total:</strong> <span class="total"><%=  @total_cost %></span> 
+        <br/>
+        <br/>
+      </div>
+      <div class="col">
+
+      </div>
+ 
+    </div>
+    <br/><br/>
+
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Código Fatura</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Nome/Descrição</th>
+            <th scope="col">Q.Stock</th>
+            <th scope="col">P.Unitário</th>
+            <th scope="col">Sub.total</th>
+            <th scope="col">V.Pagar</th>
+            <th scope="col">Lucro</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+          <div id="invoice_historics">
+            <% @invoice_historics.each do |invoice_historic| %>
+              <%= render invoice_historic %>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
+
+  </section>
+
+  <!-- Fim Itens index-->
+
+
+
+
+  <tr>
+    <div id="<%= dom_id invoice_historic %>">
+      <th scope="row"><%= invoice_historic.cart_historic.code_cart %></th>
+      <td scope="col"><%= invoice_historic.cliente_name %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.description %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.quantity %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.price %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.price * invoice_historic.cart_historic.quantity %></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.price + invoice_historic.cart_historic.item.profite_value%></td>
+      <td scope="col"><%= invoice_historic.cart_historic.item.profite_value %></td>
+      <td>
+         <%= link_to "Show", invoice_historic, class: "btn btn-info" %>
+      </td>
+      <td>
+        <%= button_to "Delete", invoice_historic, method: :delete, class:"btn btn-danger",
+        form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
+      </td>
+     
+
+ 
+    </div>
+  </tr>
