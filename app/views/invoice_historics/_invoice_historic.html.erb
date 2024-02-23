@@ -3,13 +3,12 @@
       <th scope="row"><%= invoice_historic.cart_historic.code_cart %></th>
       <td scope="col"><%= invoice_historic.cliente_name %></td>
       <td scope="col"><%= invoice_historic.cart_historic.item.description %></td>
-      <td scope="col"><%= invoice_historic.cart_historic.quantity %></td>
-      <td scope="col"><%= invoice_historic.cart_historic.item.price %></td>
-      <td scope="col"><%= invoice_historic.cart_historic.item.price * invoice_historic.cart_historic.quantity %></td>
-      <td scope="col"><%= invoice_historic.cart_historic.item.price + invoice_historic.cart_historic.item.profite_value%></td>
-      <td scope="col"><%= invoice_historic.cart_historic.item.profite_value %></td>
       <td>
-        <%= button_to "Delete", invoice_historic, method: :delete, class:"btn btn-danger" %>
+         <%= link_to "Show", invoice_historic, class: "btn btn-info" %>
+      </td>
+      <td>
+        <%= button_to "Delete", invoice_historic, method: :delete, class:"btn btn-danger",
+        form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
       </td>
     </div>
   </tr>
