@@ -9,7 +9,7 @@ class CartTempsController < ApplicationController
   # GET /cart_temps or /cart_temps.json
   def index
     @cart_temps = CartTemp.find_by_current_user(current_user)
-    @total_cost = CartTemp.total_cost
+    @total_cost = CartTemp.total_cost(current_user)
   end
 
   def cancel 

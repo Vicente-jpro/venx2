@@ -24,8 +24,8 @@ class InvoiceTempsController < ApplicationController
   # GET /invoice_temps/new
   def new
     @invoice_temp = InvoiceTemp.new
-    @cart_temps = CartTemp.all
-    @total_cost = CartTemp.total_cost 
+    @cart_temps = CartTemp.find_by_current_user(current_user)
+    @total_cost = CartTemp.total_cost(current_user)
   end
 
   # GET /invoice_temps/1/edit
@@ -35,17 +35,17 @@ class InvoiceTempsController < ApplicationController
   # POST /invoice_temps or /invoice_temps.json
   def create
     invoice_temp = InvoiceTemp.new(invoice_temp_params)
-    @total_cost = CartTemp.total_cost 
+    @total_cost = CartTemp.total_cost(current_user)
     value_delivered_customer = invoice_temp.value_delivered_customer
 
     respond_to do |format|
       if value_delivered_customer < @total_cost
         format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
       else 
-        @cart_temps = CartTemp.all
+        @cart_temps = CartTemp.find_by_current_user(current_user)
 
-        code = GenerateCode.generate
         profile ||= Profile.find_by_user(current_user)
+        code = GenerateCode.generate
 
         @cart_temps.each do |cart| 
 
