@@ -13,7 +13,7 @@ class CartTempsController < ApplicationController
 
   def cancel 
     @cart_temps = CartTemp.find_by_current_user(current_user)
-   
+    
     respond_to do |format|
       if @cart_temps.empty?
         format.html { redirect_to cart_temps_url, info: "There is no purchase to be cancelled." }
@@ -39,7 +39,7 @@ class CartTempsController < ApplicationController
     respond_to do |format|
       CartTemp.destroy_by_user(current_user)
       InvoiceTemp.destroy_by_user(current_user)
-      format.html { redirect_to cart_temps_url }
+      format.html { redirect_to cart_temps_url, info: "Ready to make sales :)" }
     end
   end
 
@@ -56,6 +56,7 @@ class CartTempsController < ApplicationController
     item_exist = CartTemp.find_by(item_id: @cart_temp.item_id)
     item = Item.find(@cart_temp.item_id)
     @cart_temp.profile ||= Profile.find_by_user(current_user)
+
     
     respond_to do |format|
       if item_exist
@@ -65,11 +66,13 @@ class CartTempsController < ApplicationController
       elsif  @cart_temp.quantity > item.quantity 
         format.html { redirect_to add_cart_items_url, alert: "The quantity of the chosen item must be less than the quantity saved." }
       elsif @cart_temp.save
-          
+        
         item.quantity = item.quantity - @cart_temp.quantity   
         item.update(item.as_json)
         format.html { redirect_to add_cart_items_url, notice: "Cart temp was successfully created." }
         format.json { render :show, status: :created, location: @cart_temp }
+        
+        InvoiceTemp.destroy_by_user(current_user)
       else
         format.html { render new, status: :unprocessable_entity }
         format.json { render json: @cart_temp.errors, status: :unprocessable_entity }

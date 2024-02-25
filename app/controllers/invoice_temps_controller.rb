@@ -10,10 +10,14 @@ class InvoiceTempsController < ApplicationController
     profile ||= Profile.find_by_user(current_user)
     
     cart_historic = CartHistoric.find_last_by_profile(profile)
-    if cart_historic.present?
+    @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
+
+    if @invoice_temps.empty?
+      redirect_to cart_temps_path, info: "Do not exist invoice_temp."
+    elsif cart_historic.present? 
       @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
     else 
-      redirect_to cart_temps_path
+      redirect_to cart_temps_path, info: "Do not exist invoice_temp."
     end
   end
 
@@ -70,7 +74,7 @@ class InvoiceTempsController < ApplicationController
           ) 
           @invoice_historic.save
         end
-        
+
         format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
         CartTemp.destroy_by_user(current_user)
          
