@@ -36,9 +36,11 @@ class CartTempsController < ApplicationController
   end
 
   def new_sale
-    CartTemp.destroy_by_user(current_user)
-    InvoiceTemp.destroy_by_user(current_user)
-    format.html { redirect_to cart_temps_url }
+    respond_to do |format|
+      CartTemp.destroy_by_user(current_user)
+      InvoiceTemp.destroy_by_user(current_user)
+      format.html { redirect_to cart_temps_url }
+    end
   end
 
   # GET /cart_temps/new
