@@ -36,6 +36,29 @@ user.password_confirmation = "12345678"
 user.save!
 puts "Fim do cadastro de usuários."
 
+puts "Cadastrando a empresa...."
+Company.find_or_create_by!(
+    name: "Adicionatec",
+    whatsapp: "9778887777",
+    telephone: "9778887777",
+    email: "adicionatec@gmail.com",
+    nif: "0001233345",
+    address: Address.first
+)
+
+Company.find_or_create_by!(
+    name: "Luisa Tech",
+    whatsapp: "955966966",
+    telephone: "955966966",
+    email: "luisa.tech@gmail.com",
+    nif: "156300032",
+    address: Address.last
+)
+
+puts "Fim do cadastro de empresa."
+
+
+
 puts "Cadastrando as perfis...."
 Profile.find_or_create_by!(
     name_profile: "Vicente Simão", 
@@ -45,7 +68,8 @@ Profile.find_or_create_by!(
     gender: "MASCULINO",
     identity_card: "12345676LA123",
     address: Address.all.sample,
-    user: User.first
+    user: User.first,
+    company: Company.first
 )
 Profile.find_or_create_by!(
     name_profile: "Vicente Simão", 
@@ -55,7 +79,8 @@ Profile.find_or_create_by!(
     gender: "MASCULINO",
     identity_card: "8765433LA123",
     address: Address.all.sample,
-    user: User.last
+    user: User.last,
+    company: Company.last
 )
 puts "Fim do cadastro de perfis."
 
@@ -135,7 +160,15 @@ puts "Cadastrando os cart_temp...."
 CartTemp.find_or_create_by!(
     item: Item.first,
     quantity: 2,
-    abandoned: true    
+    abandoned: true,
+    profile: Profile.first
+)
+
+CartTemp.find_or_create_by!(
+    item: Item.last,
+    quantity: 3,
+    abandoned: true,
+    profile: Profile.last
 )
 puts "Fim do cadastro dos items."
 

@@ -63,9 +63,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
     t.integer "quantity"
     t.boolean "abandoned", default: true
     t.integer "item_id", null: false
+    t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_cart_temps_on_item_id"
+    t.index ["profile_id"], name: "index_cart_temps_on_profile_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -204,6 +206,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
   add_foreign_key "cart_historics", "items"
   add_foreign_key "cart_historics", "profiles"
   add_foreign_key "cart_temps", "items"
+  add_foreign_key "cart_temps", "profiles"
   add_foreign_key "cities", "provinces"
   add_foreign_key "companies", "addresses"
   add_foreign_key "invoice_historics", "cart_historics"

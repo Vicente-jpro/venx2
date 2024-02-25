@@ -9,4 +9,6 @@ class InvoiceTemp < ApplicationRecord
               .where("cart_historics.code_cart = #{cart_historic.code_cart}")
   end
 
+  scope :destroy_by_user, ->(user) { where(profile_id: user.profile.id).destroy_all}
+
 end

@@ -1,20 +1,19 @@
 class CartTempsController < ApplicationController
-  before_action :set_cart_temp, only: %i[ show edit update destroy ]
+  before_action :set_cart_temp, only: %i[ show update destroy ]
   before_action :authenticate_user!
 
   include CartTempsConcerns
-
-  #rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /cart_temps or /cart_temps.json
   def index
-    @cart_temps = CartTemp.all
-    @total_cost = CartTemp.total_cost
+    @cart_temps = CartTemp.find_by_current_user(current_user)
+    @total_cost = CartTemp.total_cost(current_user)
   end
 
   def cancel 
-    @cart_temps = CartTemp.all
-   
+    @cart_temps = CartTemp.find_by_current_user(current_user)
+    
     respond_to do |format|
       if @cart_temps.empty?
         format.html { redirect_to cart_temps_url, info: "There is no purchase to be cancelled." }
@@ -27,7 +26,8 @@ class CartTempsController < ApplicationController
         end
     
         format.html { redirect_to cart_temps_url, notice: "Purchase canceled successfully." }
-        @cart_temps.destroy_all 
+        CartTemp.where(profile_id: current_user.profile.id).destroy_all
+
       end
     end  
   end
@@ -35,14 +35,19 @@ class CartTempsController < ApplicationController
   def show
   end
 
+  def new_sale
+    respond_to do |format|
+      CartTemp.destroy_by_user(current_user)
+      InvoiceTemp.destroy_by_user(current_user)
+      format.html { redirect_to cart_temps_url, info: "Ready to make sales :)" }
+    end
+  end
+
   # GET /cart_temps/new
   def new
     @cart_temp = CartTemp.new
   end
 
-  # GET /cart_temps/1/edit
-  def edit
-  end
 
   # POST /cart_temps or /cart_temps.json
   def create
@@ -50,7 +55,9 @@ class CartTempsController < ApplicationController
     @cart_temp = CartTemp.new(cart_temp_params)
     item_exist = CartTemp.find_by(item_id: @cart_temp.item_id)
     item = Item.find(@cart_temp.item_id)
+    @cart_temp.profile ||= Profile.find_by_user(current_user)
 
+    
     respond_to do |format|
       if item_exist
         format.html { redirect_to add_cart_items_url, alert: "The item #{item.description} just exit in cart." }
@@ -59,11 +66,13 @@ class CartTempsController < ApplicationController
       elsif  @cart_temp.quantity > item.quantity 
         format.html { redirect_to add_cart_items_url, alert: "The quantity of the chosen item must be less than the quantity saved." }
       elsif @cart_temp.save
-          
+        
         item.quantity = item.quantity - @cart_temp.quantity   
         item.update(item.as_json)
         format.html { redirect_to add_cart_items_url, notice: "Cart temp was successfully created." }
         format.json { render :show, status: :created, location: @cart_temp }
+        
+        InvoiceTemp.destroy_by_user(current_user)
       else
         format.html { render new, status: :unprocessable_entity }
         format.json { render json: @cart_temp.errors, status: :unprocessable_entity }

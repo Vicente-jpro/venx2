@@ -6,8 +6,10 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :address, allow_destroy: true
 
   has_many :items
-  has_many :invoice_temps
-  has_many :invoice_historic
+  has_many :invoice_temps, dependent: :destroy
+  has_many :invoice_historic, dependent: :destroy
+  has_many :cart_temps, dependent: :destroy
+  has_many :cart_historic, dependent: :destroy
   
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [140, 140]

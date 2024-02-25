@@ -10,10 +10,14 @@ class InvoiceTempsController < ApplicationController
     profile ||= Profile.find_by_user(current_user)
     
     cart_historic = CartHistoric.find_last_by_profile(profile)
-    if cart_historic.present?
+    @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
+
+    if @invoice_temps.empty?
+      redirect_to cart_temps_path, info: "Do not exist invoice_temp."
+    elsif cart_historic.present? 
       @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
     else 
-      redirect_to cart_temps_path
+      redirect_to cart_temps_path, info: "Do not exist invoice_temp."
     end
   end
 
@@ -24,28 +28,29 @@ class InvoiceTempsController < ApplicationController
   # GET /invoice_temps/new
   def new
     @invoice_temp = InvoiceTemp.new
-    @cart_temps = CartTemp.all
-    @total_cost = CartTemp.total_cost 
+    @cart_temps = CartTemp.find_by_current_user(current_user)
+    @total_cost = CartTemp.total_cost(current_user)
   end
 
   # GET /invoice_temps/1/edit
   def edit
   end
 
+
   # POST /invoice_temps or /invoice_temps.json
   def create
     invoice_temp = InvoiceTemp.new(invoice_temp_params)
-    @total_cost = CartTemp.total_cost 
+    @total_cost = CartTemp.total_cost(current_user)
     value_delivered_customer = invoice_temp.value_delivered_customer
 
     respond_to do |format|
       if value_delivered_customer < @total_cost
         format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
       else 
-        @cart_temps = CartTemp.all
+        @cart_temps = CartTemp.find_by_current_user(current_user)
 
-        code = GenerateCode.generate
         profile ||= Profile.find_by_user(current_user)
+        code = GenerateCode.generate
 
         @cart_temps.each do |cart| 
 
@@ -60,24 +65,19 @@ class InvoiceTempsController < ApplicationController
             cart_historic,
             cart
           )
-
           @invoice_temp.save
 
-          @invoice_historic = InvoiceHistoric.new
-          @invoice_historic.cliente_name = invoice_temp.cliente_name
-          @invoice_historic.value_delivered_customer = invoice_temp.value_delivered_customer
-          @invoice_historic.payment_method = invoice_temp.payment_method 
-          @invoice_historic.profile ||=  @invoice_temp.profile
-          @invoice_historic.total = @total_cost
-          @invoice_historic.customer_change =  @invoice_temp.customer_change 
-          @invoice_historic.cart_historic = @invoice_temp.cart_historic
-          @invoice_historic.sub_total = @invoice_temp.sub_total
+          @invoice_historic = invoice_historic_build(
+            invoice_temp,
+            profile,
+            @total_cost
+          ) 
           @invoice_historic.save
         end
-       
-        format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
 
-        # CartTemp.destroy_all
+        format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
+        CartTemp.destroy_by_user(current_user)
+         
       end
     end
 

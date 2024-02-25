@@ -1,5 +1,5 @@
   <section>
-    <h5 class="fs-3 text-center">sales panel</h5>
+    <h5 class="fs-3 text-center">sales panel <%= current_user.email%></h5>
     <div class="row">
       <div class="col-sm-4 fs-4 text-success">
         <strong>Total:</strong> <span class="total"><%=  @total_cost %></span> 
@@ -14,7 +14,7 @@
       </div>
     </div>
     <br/><br/>
-
+  
     <table class="table table-hover shadow-sm">
         <thead>
           <tr>
