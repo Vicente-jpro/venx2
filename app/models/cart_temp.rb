@@ -14,5 +14,7 @@ class CartTemp < ApplicationRecord
   def self.find_by_current_user(user)
     CartTemp.where(profile_id: user.profile.id)
   end
+  
+  scope :destroy_by_user, ->(user) { where(profile_id: user.profile.id).destroy_all}
 
 end

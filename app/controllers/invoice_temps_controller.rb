@@ -32,6 +32,7 @@ class InvoiceTempsController < ApplicationController
   def edit
   end
 
+
   # POST /invoice_temps or /invoice_temps.json
   def create
     invoice_temp = InvoiceTemp.new(invoice_temp_params)
@@ -69,10 +70,9 @@ class InvoiceTempsController < ApplicationController
           ) 
           @invoice_historic.save
         end
-       
+        
         format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
-
-         CartTemp.destroy_all
+        CartTemp.destroy_by_user(current_user)
          
       end
     end

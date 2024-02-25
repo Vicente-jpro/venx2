@@ -1,10 +1,9 @@
 class CartTempsController < ApplicationController
-  before_action :set_cart_temp, only: %i[ show edit update destroy ]
+  before_action :set_cart_temp, only: %i[ show update destroy ]
   before_action :authenticate_user!
 
   include CartTempsConcerns
-
-  #rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /cart_temps or /cart_temps.json
   def index
@@ -27,7 +26,8 @@ class CartTempsController < ApplicationController
         end
     
         format.html { redirect_to cart_temps_url, notice: "Purchase canceled successfully." }
-        @cart_temps.destroy_all 
+        CartTemp.where(profile_id: current_user.profile.id).destroy_all
+
       end
     end  
   end
@@ -35,14 +35,17 @@ class CartTempsController < ApplicationController
   def show
   end
 
+  def new_sale
+    CartTemp.destroy_by_user(current_user)
+    InvoiceTemp.destroy_by_user(current_user)
+    format.html { redirect_to cart_temps_url }
+  end
+
   # GET /cart_temps/new
   def new
     @cart_temp = CartTemp.new
   end
 
-  # GET /cart_temps/1/edit
-  def edit
-  end
 
   # POST /cart_temps or /cart_temps.json
   def create
