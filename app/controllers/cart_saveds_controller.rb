@@ -17,9 +17,9 @@ class CartSavedsController < ApplicationController
   def recover_sale
     profile ||= Profile.find_by_user(current_user)
     cart_saveds ||= CartSaved.find_by_cart_saved(@cart_saved)
-    
+  
     respond_to do |format|
-      cart_temps.each do |cart|
+      cart_saveds.each do |cart|
         cart_temp = cart_recovered_build(cart, profile) 
         cart_temp.save
       end
@@ -27,6 +27,7 @@ class CartSavedsController < ApplicationController
       format.html { redirect_to cart_temps_url, notice: "Cart was successfully recovered." }
       CartSaved.destroy_by_code_cart(@cart_saved)
     end
+  
 
   end
 
@@ -35,17 +36,21 @@ class CartSavedsController < ApplicationController
     profile ||= Profile.find_by_user(current_user)
     cart_temps ||= CartTemp.find_by_profile(profile)
 
-    code = GenerateCode.generate
     respond_to do |format|
-      cart_temps.each do |cart|
-        @cart_saved = cart_saved_build(cart, profile, code) 
-        @cart_saved.save
+      code = GenerateCode.generate
+      if cart_temps.empty?
+        format.html { redirect_to cart_temps_url, info: "Do not exist item to save." }
+      else
+        
+        cart_temps.each do |cart|
+          @cart_saved = cart_saved_build(cart, profile, code) 
+          @cart_saved.save
+        end
+
+        format.html { redirect_to cart_temps_url, notice: "Cart saved was successfully created." }
+        CartTemp.destroy_by_user(current_user)
       end
-
-      format.html { redirect_to cart_temps_url, notice: "Cart saved was successfully created." }
-      CartTemp.destroy_by_user(current_user)
     end
-
   end
 
   # DELETE /cart_saveds/1 or /cart_saveds/1.json
