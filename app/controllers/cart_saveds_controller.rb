@@ -1,5 +1,7 @@
 class CartSavedsController < ApplicationController
   before_action :set_cart_saved, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  include CartSavedsConcerns
 
   # GET /cart_saveds or /cart_saveds.json
   def index
@@ -21,17 +23,20 @@ class CartSavedsController < ApplicationController
 
   # POST /cart_saveds or /cart_saveds.json
   def create
-    @cart_saved = CartSaved.new(cart_saved_params)
+    profile ||= Profile.find_by_user(current_user)
+    cart_temps ||= CartTemp.find_by_profile(profile)
+    debugger
 
     respond_to do |format|
-      if @cart_saved.save
-        format.html { redirect_to cart_saved_url(@cart_saved), notice: "Cart saved was successfully created." }
-        format.json { render :show, status: :created, location: @cart_saved }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cart_saved.errors, status: :unprocessable_entity }
+      cart_temps.each do |cart|
+        @cart_saved = cart_saved_build(cart, profile) 
+        @cart_saved.save
       end
+
+      format.html { redirect_to cart_temps_url, notice: "Cart saved was successfully created." }
+      CartTemp.destroy_by_user(current_user)
     end
+
   end
 
   # PATCH/PUT /cart_saveds/1 or /cart_saveds/1.json
