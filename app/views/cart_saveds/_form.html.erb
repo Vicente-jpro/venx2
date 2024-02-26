@@ -11,27 +11,7 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :quantity, style: "display: block" %>
-    <%= form.number_field :quantity %>
-  </div>
-
-  <div>
-    <%= form.label :abandoned, style: "display: block" %>
-    <%= form.check_box :abandoned %>
-  </div>
-
-  <div>
-    <%= form.label :item_id, style: "display: block" %>
-    <%= form.text_field :item_id %>
-  </div>
-
-  <div>
-    <%= form.label :profile_id, style: "display: block" %>
-    <%= form.text_field :profile_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+   <div class="d-grid gap-2 my-1">
+    <%= form.submit "Salvar para vender depois", class: "btn btn-outline-success"%>
   </div>
 <% end %>

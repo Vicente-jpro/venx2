@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :cart_saveds
+  
 
   root "home#index"
   
@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :companies
   resources :invoice_temps
+  resources :cart_saveds, only: [:destroy, :show, :index, :create]
+
   resources :cart_temps do 
     member do 
       get 'add_one_item'

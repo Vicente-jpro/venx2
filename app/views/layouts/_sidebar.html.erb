@@ -48,8 +48,12 @@
         </button>
         <div class="collapse show" id="fatura-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li> <%= link_to "Historico", invoice_historics_path, class: "link-dark rounded" %>  
-            <li><a href="#" class="link-dark rounded">Guardadas</a></li>
+            <li> 
+              <%= link_to "Historico", invoice_historics_path, class: "link-dark rounded" %>  
+            </li>
+            <li>
+              <%= link_to "Guardadas", cart_saveds_path, class: "link-dark rounded" %>  
+            </li>
           </ul>
         </div>
       </li>
