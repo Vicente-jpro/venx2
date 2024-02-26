@@ -7,8 +7,10 @@
 
         <div class="row">
           <div class="col">
-            <%= @profile.company.name %>
-            Desenvolvido pela adicionatec
+            <strong>Empresa:</strong> <%= @profile.company.name %> <br/>
+            <strong>Whatsapp:</strong> <%= @profile.company.whatsapp %> <br/>
+            <strong>Email:</strong> <%= @profile.company.email %> <br/>
+            <strong>NIF:</strong> <%= @profile.company.nif %> <br/>
           </div>
           <div class="col">
             <p class="text-center">  
@@ -16,39 +18,23 @@
             </p>
             <p class="text-center">
 
-              Adicionatec <br/>
+              <%= @profile.company.name %> <br/>
               A sua empresa com excelencia
          
             </p>
           </div>
           <div class="col">
-          
-            <p>
-              <strong>Data:</strong>
-              <%= @invoice_temps.first.created_at.strftime("%B %d %Y, %H:%M:%S")%>
-            </p>
-
-            <p>
-              <strong>Código Fatura</strong>
-              <%= @invoice_temps.first.cart_historic.code_cart %>
-            </p>
-
-            <p>
-              <strong>Cliente name:</strong>
-              <%= @invoice_temps.first.cliente_name %>
-            </p>
-
-            <p>
-              <strong>Payment method:</strong>
-              <%= @invoice_temps.first.payment_method %>
-            </p>
-
-            <p>
-              <strong>Atendente:</strong>
-              <%= @invoice_temps.first.profile.name_profile %>
-            </p>
+            <strong>Data:</strong>
+            <%= @invoice_temps.first.created_at.strftime("%B %d %Y, %H:%M:%S")%> <br/>
+            <strong>Código Fatura:</strong> 
+            <%= @invoice_temps.first.cart_historic.code_cart %> <br/>
+            <strong>Cliente name:</strong>
+            <%= @invoice_temps.first.cliente_name %> <br/>
+            <strong>Payment method:</strong>
+            <%= @invoice_temps.first.payment_method %> <br/>
+            <strong>Atendente:</strong>
+            <%= @invoice_temps.first.profile.name_profile %>
           </div>
-        
         </div>
     <br/>
 
