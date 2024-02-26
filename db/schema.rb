@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_26_162222) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,6 +57,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_cart_historics_on_item_id"
     t.index ["profile_id"], name: "index_cart_historics_on_profile_id"
+  end
+
+  create_table "cart_saveds", force: :cascade do |t|
+    t.integer "quantity"
+    t.boolean "abandoned", default: true
+    t.string "code_cart"
+    t.integer "item_id", null: false
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_cart_saveds_on_item_id"
+    t.index ["profile_id"], name: "index_cart_saveds_on_profile_id"
   end
 
   create_table "cart_temps", force: :cascade do |t|
@@ -205,6 +217,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_110558) do
   add_foreign_key "addresses", "cities"
   add_foreign_key "cart_historics", "items"
   add_foreign_key "cart_historics", "profiles"
+  add_foreign_key "cart_saveds", "items"
+  add_foreign_key "cart_saveds", "profiles"
   add_foreign_key "cart_temps", "items"
   add_foreign_key "cart_temps", "profiles"
   add_foreign_key "cities", "provinces"

@@ -1,0 +1,63 @@
+<section>
+    <h5 class="fs-3 text-center">Cart Saved</h5>
+    <div class="row">
+      <div class="col-sm-4 fs-4 text-success">
+        <strong>Total:</strong> <span class="total"><%=  @total_cost %></span> 
+        <br/>
+        <br/>
+      </div>
+      <div class="col">
+
+      </div>
+ 
+    </div>
+    <br/><br/>
+
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Código Fatura</th>
+            <th scope="col">Item</th>
+            <th scope="col">Q.Stock</th>
+            <th scope="col">P.Unitário</th>
+            <th scope="col">Sub.total</th>
+            <th scope="col">V.Pagar</th>
+            <th scope="col">Lucro</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+          <div id="cart_saveds">
+            <% @cart_saveds.each do |cart_saved| %>
+
+              <tr>
+                <div id="<%= dom_id cart_saved %>">
+                  <th scope="row"><%= cart_saved.code_cart %></th>
+                  <td scope="col"><%= cart_saved.item.description %></td>
+                  <td scope="col"><%= cart_saved.quantity %></td>
+                  <td scope="col"><%= cart_saved.item.price %></td>
+                  <td scope="col"><%= cart_saved.item.price * cart_saved.quantity %></td>
+                  <td scope="col"><%= cart_saved.item.profite_value %></td>
+                  <td>
+                    <%= link_to "recover", recover_sale_cart_saved_path(cart_saved), 
+                    class: "btn btn-info" %>
+                  </td>
+                  <td>
+                    <%= button_to "Delete", cart_saved, method: :delete, class:"btn btn-danger",
+                    form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
+                  </td>
+            
+                </div>
+              </tr>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
+
+  </section>
+
+  <!-- Fim Itens index-->
+
+
+

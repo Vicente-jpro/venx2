@@ -61,7 +61,7 @@ puts "Fim do cadastro de empresa."
 
 puts "Cadastrando as perfis...."
 Profile.find_or_create_by!(
-    name_profile: "Vicente Simão", 
+    name_profile: "Luisa Anibal", 
     whatsapp: "144889722",
     telephone: "166666666",
     profile_type: "FUNCIONARIO",

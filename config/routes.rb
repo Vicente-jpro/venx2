@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   root "home#index"
   
   resources :invoice_historics
@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   resources :companies
   resources :invoice_temps
+  resources :cart_saveds, only: [:destroy, :show, :index, :create, :recover_sale] do
+    member do 
+      get 'recover_sale'
+    end
+  end
+
   resources :cart_temps do 
     member do 
       get 'add_one_item'

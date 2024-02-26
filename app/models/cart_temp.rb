@@ -12,7 +12,13 @@ class CartTemp < ApplicationRecord
   end
 
   def self.find_by_current_user(user)
-    CartTemp.where(profile_id: user.profile.id)
+    CartTemp.joins(:item, :profile)
+            .where(profile_id: user.profile.id)
+  end
+
+  def self.find_by_profile(profile)
+    CartTemp.joins(:item, :profile)
+            .where(profile_id: profile.id)
   end
   
   scope :destroy_by_user, ->(user) { where(profile_id: user.profile.id).destroy_all}
