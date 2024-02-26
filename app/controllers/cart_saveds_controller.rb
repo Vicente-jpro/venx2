@@ -1,5 +1,5 @@
 class CartSavedsController < ApplicationController
-  before_action :set_cart_saved, only: %i[ show destroy ]
+  before_action :set_cart_saved, only: %i[ show destroy recover_sale]
   before_action :authenticate_user!
   include CartSavedsConcerns
 
@@ -10,13 +10,30 @@ class CartSavedsController < ApplicationController
 
   # GET /cart_saveds/1 or /cart_saveds/1.json
   def show
+    @cart_saveds =  CartSaved.find_by_cart_saved(@cart_saved)
+    @total_cost = CartSaved.total_cost(@cart_saved)
+  end
+
+  def recover_sale
+    profile ||= Profile.find_by_user(current_user)
+    cart_saveds ||= CartSaved.find_by_cart_saved(@cart_saved)
+    
+    respond_to do |format|
+      cart_temps.each do |cart|
+        cart_temp = cart_recovered_build(cart, profile) 
+        cart_temp.save
+      end
+
+      format.html { redirect_to cart_temps_url, notice: "Cart was successfully recovered." }
+      CartSaved.destroy_by_code_cart(@cart_saved)
+    end
+
   end
 
   # POST /cart_saveds or /cart_saveds.json
   def create
     profile ||= Profile.find_by_user(current_user)
     cart_temps ||= CartTemp.find_by_profile(profile)
-    debugger
 
     code = GenerateCode.generate
     respond_to do |format|

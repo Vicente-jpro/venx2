@@ -1,8 +1,35 @@
-<h1>Cart saveds</h1>
 
-<div id="cart_saveds">
-  <% @cart_saveds.each do |cart_saved| %>
-    <%= render cart_saved %>
-  <% end %>
-</div>
 
+  <section>
+    <h5 class="fs-3 text-center">Cart saveds</h5>
+
+    <br/>
+
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Código Fatura</th>
+            <th scope="col">Atendente</th>
+            <th scope="col">Item</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+
+          <div id="cart_saveds">
+            <!--Não mostrar as faturas repetidas-->
+            <% code_cart = "" %>
+            <% @cart_saveds.each do |cart_saved| %>
+               <% if code_cart != cart_saved.code_cart %>
+                  <%= render cart_saved %>
+               <% end %>
+               <% code_cart = cart_saved.code_cart %>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
+
+  </section>
+
+  <!-- Fim Itens index-->

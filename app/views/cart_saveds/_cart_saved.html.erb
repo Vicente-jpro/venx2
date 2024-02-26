@@ -1,22 +1,14 @@
-<div id="<%= dom_id cart_saved %>">
-  <p>
-    <strong>Quantity:</strong>
-    <%= cart_saved.quantity %>
-  </p>
-
-  <p>
-    <strong>Abandoned:</strong>
-    <%= cart_saved.abandoned %>
-  </p>
-
-  <p>
-    <strong>Item:</strong>
-    <%= cart_saved.item_id %>
-  </p>
-
-  <p>
-    <strong>Profile:</strong>
-    <%= cart_saved.profile_id %>
-  </p>
-
-</div>
+  <tr>
+    <div id="<%= dom_id cart_saved %>">
+      <th scope="row"><%= cart_saved.code_cart %></th>
+      <td scope="col"><%= cart_saved.profile.name_profile %></td>
+      <td scope="col"><%= cart_saved.item.description %></td>
+      <td>
+         <%= link_to "Show", cart_saved, class: "btn btn-info" %>
+      </td>
+      <td>
+        <%= button_to "Delete", cart_saved, method: :delete, class:"btn btn-danger",
+        form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este sector?"} }  %>
+      </td>
+    </div>
+  </tr>

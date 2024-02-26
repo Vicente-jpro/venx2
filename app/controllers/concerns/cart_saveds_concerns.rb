@@ -11,4 +11,13 @@ module CartSavedsConcerns
     cart_saved
   end
 
+  def cart_recovered_build(cart, profile)
+    cart_temp = CartTemp.new
+    cart_temp.item = cart.item
+    cart_temp.quantity = cart.quantity
+    cart_temp.abandoned = false
+    cart_temp.profile = profile
+    cart_temp
+  end
+
 end

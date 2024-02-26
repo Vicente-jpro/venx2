@@ -61,7 +61,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162222) do
 
   create_table "cart_saveds", force: :cascade do |t|
     t.integer "quantity"
-    t.boolean "abandoned"
+    t.boolean "abandoned", default: true
+    t.string "code_cart"
     t.integer "item_id", null: false
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false

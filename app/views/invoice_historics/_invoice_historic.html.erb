@@ -2,6 +2,7 @@
     <div id="<%= dom_id invoice_historic %>">
       <th scope="row"><%= invoice_historic.cart_historic.code_cart %></th>
       <td scope="col"><%= invoice_historic.cliente_name %></td>
+      <td scope="col"><%= invoice_historic.profile.name_profile %></td>
       <td scope="col"><%= invoice_historic.cart_historic.item.description %></td>
       <td>
          <%= link_to "Show", invoice_historic, class: "btn btn-info" %>
