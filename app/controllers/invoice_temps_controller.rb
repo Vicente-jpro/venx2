@@ -7,9 +7,9 @@ class InvoiceTempsController < ApplicationController
 
   # GET /invoice_temps or /invoice_temps.json
   def index
-    profile ||= Profile.find_by_user(current_user)
+    @profile ||= Profile.find_by_user(current_user)
     
-    cart_historic = CartHistoric.find_last_by_profile(profile)
+    cart_historic = CartHistoric.find_last_by_profile(@profile)
     @invoice_temps = InvoiceTemp.find_by_cart_historic(cart_historic) 
 
     if @invoice_temps.empty?

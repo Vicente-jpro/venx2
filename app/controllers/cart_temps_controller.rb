@@ -53,11 +53,10 @@ class CartTempsController < ApplicationController
   def create
     
     @cart_temp = CartTemp.new(cart_temp_params)
-    item_exist = CartTemp.find_by(item_id: @cart_temp.item_id)
     item = Item.find(@cart_temp.item_id)
     @cart_temp.profile ||= Profile.find_by_user(current_user)
+    item_exist = CartTemp.find_by(item_id: @cart_temp.item_id, profile_id: @cart_temp.profile.id)
 
-    
     respond_to do |format|
       if item_exist
         format.html { redirect_to add_cart_items_url, alert: "The item #{item.description} just exit in cart." }
@@ -72,7 +71,10 @@ class CartTempsController < ApplicationController
         format.html { redirect_to add_cart_items_url, notice: "Cart temp was successfully created." }
         format.json { render :show, status: :created, location: @cart_temp }
         
-        InvoiceTemp.destroy_by_user(current_user)
+        @invoice ||= InvoiceTemp.find_by_current_user(current_user)
+        if !@invoice.empty?
+          InvoiceTemp.destroy_by_user(current_user)
+        end
       else
         format.html { render new, status: :unprocessable_entity }
         format.json { render json: @cart_temp.errors, status: :unprocessable_entity }

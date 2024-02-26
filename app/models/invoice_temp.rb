@@ -10,5 +10,5 @@ class InvoiceTemp < ApplicationRecord
   end
 
   scope :destroy_by_user, ->(user) { where(profile_id: user.profile.id).destroy_all}
-
+  scope :find_by_current_user, ->(user) { where(profile_id: user.profile.id).destroy_all}
 end
