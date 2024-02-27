@@ -6,5 +6,5 @@ class Item < ApplicationRecord
 
   has_many :cart_temps
   has_many :cart_historics
-
+  has_many :most_sales
 end
