@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_26_162222) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_144249) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -158,6 +158,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162222) do
     t.index ["supplier_id"], name: "index_items_on_supplier_id"
   end
 
+  create_table "most_sales", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_most_sales_on_item_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "name_profile"
     t.string "whatsapp"
@@ -231,6 +239,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162222) do
   add_foreign_key "items", "profiles"
   add_foreign_key "items", "sectors"
   add_foreign_key "items", "suppliers"
+  add_foreign_key "most_sales", "items"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "companies"
   add_foreign_key "profiles", "users"

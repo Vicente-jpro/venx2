@@ -1,0 +1,40 @@
+
+<section class="col-sm-9">
+    <h5 class="fs-3 text-center">
+         <%= link_to "Most Sales", root_path %>
+    </h5>
+
+    <br/>
+
+    <table class="table table-hover shadow-sm">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>   
+          <div id="most_sales">
+            <% code = 1 %>
+            <% @most_sales.each do |most_sale| %>
+             <tr>
+                <div id="<%= dom_id most_sale %>">
+                    <th scope="row"><%= code %></th>
+                    <td scope="col"><%= most_sale.item.description %></td>
+                    <td scope="col"><%= most_sale.quantity %></td>
+                </div>
+              </tr>
+                  <% code += 1 %>
+            <% end %>
+          </div>
+        </tbody>
+      </table>
+
+  </section>
+
+  <!-- Fim Itens index-->
+
+
+
+
