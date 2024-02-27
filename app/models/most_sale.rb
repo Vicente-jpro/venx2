@@ -1,7 +1,12 @@
 class MostSale < ApplicationRecord
   belongs_to :item
 
-  scope :find_most_sales, -> { self.all.order(quantity) }
+  def self.find_most_sales 
+    MostSale.destroy_all
+    find_hundred_items_with_quantity
+    MostSale.joins(:item)
+            .order(quantity: :desc) 
+  end
   # Ex:- scope :active, -> {where(:active => true)}
 
   private
@@ -27,10 +32,10 @@ class MostSale < ApplicationRecord
 
     end
 
-    scope :find_hundred_items, -> { select(:item_id).distinct.limit(100) }
+    scope :find_hundred_items, -> { CartHistoric.select(:item_id).distinct.limit(100) }
     
     scope :find_sum_of_an_item, ->(item_id) { 
-    select(:item_id).distinct
+      CartHistoric.select(:item_id).distinct
                     .where(item_id: item_id)
                     .sum(:quantity)
   }
