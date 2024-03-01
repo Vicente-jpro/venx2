@@ -14,6 +14,18 @@ class ItemsController < ApplicationController
   def show
   end
 
+  def search
+    @items = Item.search_by_item_code_or_description(params[:query])
+
+    respond_to do |format|
+      if @items 
+        format.html { redirect_to search_items_path }
+      else  
+        format.html { redirect_to search_items_path, info: "No items found." }
+      end
+    end
+  end
+
   # GET /items/new
   def new
     @item = Item.new
