@@ -10,6 +10,5 @@ window.jQuery = jquery
 window.$ = jquery
 
 $(function(){
-
     console.log("Hello from jquery")
 })

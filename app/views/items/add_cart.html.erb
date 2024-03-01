@@ -3,6 +3,18 @@
     <h5 class="fs-3 text-center">Add an item to cart</h5>
 
     <section>
+  
+      <%= bootstrap_form_with url: "items/search", method: :get do |form| %>
+        <div class="col">
+          <%= form.text_field :query, label: ".", 
+          placeholder: "Pesquisar por: código do item ou descricção"%>
+          
+          <div class="d-grid gap-2 my-1">
+            <%= form.submit "Search" %> 
+          </div>
+        </div>
+      <% end %>
+
 
       <div class="d-grid gap-2 my-1">
           <%= link_to "Continuar com a venda", cart_temps_path, class: "btn btn-warning"%> 

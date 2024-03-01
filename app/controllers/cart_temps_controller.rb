@@ -11,6 +11,49 @@ class CartTempsController < ApplicationController
     @total_cost = CartTemp.total_cost(current_user)
   end
 
+  def add_with_sanner 
+    item = Item.find_by(item_code: params[:query])
+    
+    respond_to do |format|
+      if item.nil?
+        format.html { redirect_to cart_temps_url, 
+          alert: "This item do not exist." }
+      elsif item_out_of_stock?(item)
+        format.html { redirect_to cart_temps_url, 
+          alert: "The #{item.description} item is no longer available in stock" }
+      elsif item 
+        profile ||= Profile.find_by_user(current_user)
+        item_on_cart_temp = CartTemp.find_by(item_id: item.id, profile_id: profile.id)
+
+        if item_on_cart_temp
+          item_on_cart_temp.quantity += 1
+          item_on_cart_temp.update(item_on_cart_temp.as_json)
+          item.quantity = item.quantity - 1  
+          item.update(item.as_json)
+  
+          format.html { redirect_to cart_temps_url, notice: "Cart temp was successfully created." }      
+        else  
+          @cart_temp = CartTemp.new 
+          @cart_temp.quantity = 1
+          @cart_temp.abandoned = true 
+          @cart_temp.item = item
+          @cart_temp.profile = profile
+          @cart_temp.save
+          
+          item.quantity = item.quantity - @cart_temp.quantity   
+          item.update(item.as_json)
+          format.html { redirect_to cart_temps_url, notice: "Cart temp was successfully created." }
+
+          @invoice ||= InvoiceTemp.find_by_current_user(current_user)
+          if !@invoice.empty?
+            InvoiceTemp.destroy_by_user(current_user)
+          end
+        end
+      end
+
+    end
+  end
+
   def cancel 
     @cart_temps = CartTemp.find_by_current_user(current_user)
     
