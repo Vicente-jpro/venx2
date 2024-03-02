@@ -1,6 +1,7 @@
 class InvoiceHistoricsController < ApplicationController
   before_action :set_invoice_historic, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
+  include InvoiceHistoricsConcerns
   # GET /invoice_historics or /invoice_historics.json
   def index
     @invoice_historics = InvoiceHistoric.all
