@@ -7,5 +7,7 @@ class InvoiceHistoric < ApplicationRecord
                    .where("cart_historics.code_cart = #{invoice_historic.cart_historic.code_cart}")
   end
 
-  # Selecionar os produto mais vendidos, pelo nome_item e pela quantidade de vendas.
+  scope :search_by_date, ->(data_inicio, data_fim) { 
+    where(created_at: (data_inicio)..data_fim)
+  }
 end

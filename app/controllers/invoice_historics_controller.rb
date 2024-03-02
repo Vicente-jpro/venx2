@@ -4,7 +4,11 @@ class InvoiceHistoricsController < ApplicationController
   include InvoiceHistoricsConcerns
   # GET /invoice_historics or /invoice_historics.json
   def index
-    @invoice_historics = InvoiceHistoric.all
+    @invoice_historics = search_by_date(params[:data_inicio], params[:data_fim])
+    if  @invoice_historics.empty?
+      @invoice_historics = Item.all
+      redirect_to invoice_historics_url, info: "No invoice historic found."
+    end
   end
 
   # GET /invoice_historics/1 or /invoice_historics/1.json

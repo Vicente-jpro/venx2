@@ -27,9 +27,4 @@ class CartHistoric < ApplicationRecord
             
   end
 
-  scope :search_by_date, ->(data_inicio, data_fim) { 
-    where(created_at: (data_inicio)..data_fim)
-  }
-  
-
 end
