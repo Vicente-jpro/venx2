@@ -2,13 +2,22 @@ class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
+  include ItemsConcerns
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @items = items_searched(params[:query])
+    if @items.empty?
+      @items = Item.all
+      redirect_to items_url, info: "No items found."
+    end
   end
 
   def add_cart
-    @items = Item.all
+    @items = items_searched(params[:query])
+    if @items.empty?
+      @items = Item.all
+      redirect_to add_cart_items_url, info: "No items found."
+    end
   end
   # GET /items/1 or /items/1.json
   def show
