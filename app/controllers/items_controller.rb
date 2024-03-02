@@ -8,22 +8,19 @@ class ItemsController < ApplicationController
   end
 
   def add_cart
-    @items = Item.all
+    if params[:query].present?
+      
+      @items = Item.search_by_item_code_or_description(params[:query])
+      if @items.empty?
+        @items = Item.all
+        redirect_to add_cart_items_url, info: "No items found."
+      end
+    else
+      @items = Item.all
+    end
   end
   # GET /items/1 or /items/1.json
   def show
-  end
-
-  def search
-    @items = Item.search_by_item_code_or_description(params[:query])
-
-    respond_to do |format|
-      if @items 
-        format.html { redirect_to search_items_path }
-      else  
-        format.html { redirect_to search_items_path, info: "No items found." }
-      end
-    end
   end
 
   # GET /items/new

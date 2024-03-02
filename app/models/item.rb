@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   has_many :most_sales
 
   scope :search_by_item_code_or_description, ->(query) { 
-    where("description = ? AND item_code = ?", query, query)
+    where("description LIKE '%#{query}%'  OR item_code LIKE '%#{query}%' ")
   }
   
 end

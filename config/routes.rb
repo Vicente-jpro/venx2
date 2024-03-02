@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   resources :items do 
     collection do 
       get 'add_cart'
-      get 'search'
     end 
   end 
   resources :categories
