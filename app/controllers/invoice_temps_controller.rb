@@ -51,10 +51,10 @@ class InvoiceTempsController < ApplicationController
 
         profile ||= Profile.find_by_user(current_user)
         code = GenerateCode.generate
-
+        date = Time.now
         @cart_temps.each do |cart| 
 
-          cart_historic = cart_historic_build(cart, code, profile)
+          cart_historic = cart_historic_build(cart, code, profile, date)
           cart_historic.save
           
           @invoice_temp = invoice_temp_build(
@@ -63,14 +63,15 @@ class InvoiceTempsController < ApplicationController
             value_delivered_customer,
             @total_cost,
             cart_historic,
-            cart
+            cart,
+            date
           )
           @invoice_temp.save
 
           @invoice_historic = invoice_historic_build(
             invoice_temp,
             profile,
-            @total_cost
+            @total_cost, date
           ) 
           @invoice_historic.save
         end
