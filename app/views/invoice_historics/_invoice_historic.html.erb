@@ -4,6 +4,8 @@
       <td scope="col"><%= invoice_historic.cliente_name %></td>
       <td scope="col"><%= invoice_historic.profile.name_profile %></td>
       <td scope="col"><%= invoice_historic.cart_historic.item.description %></td>
+      <td scope="col"> <%= invoice_historic.created_at.strftime("%B %d %Y, %H:%M:%S")%></td>
+     
       <td>
          <%= link_to "Show", invoice_historic, class: "btn btn-info" %>
       </td>

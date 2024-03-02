@@ -2,6 +2,27 @@
     <h5 class="fs-3 text-center">Historic panel</h5>
 
     <br/>
+       <%= form_with url: "/items/search_by_date", method: :get do |form| %>
+       
+        <div class="row">
+          <div class="col-sm-2">
+            <%= form.label :data_inicio %> <br/>
+            <%= form.date_field :data_inicio, label: "Data inicio", class: "form-control"%>
+          
+          </div>
+          <div class="col-sm-2">
+            <%= form.label :data_fim %> <br/>
+            <%= form.date_field :data_fim, label: "Data Fim", class: "form-control"%>
+            
+          </div>
+          <div class="col-sm-2"> 
+            <div class="d-grid gap-2 my-4">
+              <%= form.submit "Search", class:"btn btn-warning" %> 
+            </div>
+          </div>
+        </div>
+
+      <% end %>
 
     <table class="table table-hover shadow-sm">
         <thead>
@@ -10,6 +31,7 @@
             <th scope="col">Cliente</th>
             <th scope="col">Atendente</th>
             <th scope="col">Item</th>
+            <th scope="col">Data</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
