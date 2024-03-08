@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  max_paginates_per 15
+
   belongs_to :supplier
   belongs_to :category
   belongs_to :profile

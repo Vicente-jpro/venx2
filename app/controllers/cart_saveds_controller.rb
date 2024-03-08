@@ -5,7 +5,7 @@ class CartSavedsController < ApplicationController
 
   # GET /cart_saveds or /cart_saveds.json
   def index
-    @cart_saveds = CartSaved.all
+    @cart_saveds = CartSaved.all.page(params[:page])
   end
 
   # GET /cart_saveds/1 or /cart_saveds/1.json
