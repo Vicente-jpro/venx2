@@ -5,8 +5,9 @@ class InvoiceHistoricsController < ApplicationController
   # GET /invoice_historics or /invoice_historics.json
   def index
     @invoice_historics = search_by_date(params[:data_inicio], params[:data_fim])
+                            .page(params[:page])
     if  @invoice_historics.empty?
-      @invoice_historics = Item.all
+      @invoice_historics = Item.all.page(params[:page])
       redirect_to invoice_historics_url, info: "No invoice historic found."
     end
   end

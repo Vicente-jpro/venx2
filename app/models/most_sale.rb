@@ -1,4 +1,6 @@
 class MostSale < ApplicationRecord
+  max_paginates_per 10
+
   belongs_to :item
 
   def self.find_most_sales 

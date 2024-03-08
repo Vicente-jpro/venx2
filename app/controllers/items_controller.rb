@@ -5,9 +5,9 @@ class ItemsController < ApplicationController
   include ItemsConcerns
   # GET /items or /items.json
   def index
-    @items = items_searched(params[:query])
+    @items = items_searched(params[:query]).page(params[:page])
     if @items.empty?
-      @items = Item.all
+      @items = Item.all.page(params[:page])
       redirect_to items_url, info: "No items found."
     end
   end

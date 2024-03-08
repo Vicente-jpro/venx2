@@ -1,4 +1,6 @@
 class CartSaved < ApplicationRecord
+  max_paginates_per 15
+  
   belongs_to :item
   belongs_to :profile
 

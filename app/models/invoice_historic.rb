@@ -1,4 +1,5 @@
 class InvoiceHistoric < ApplicationRecord
+  max_paginates_per 20
   belongs_to :profile
   belongs_to :cart_historic
 
