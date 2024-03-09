@@ -12,10 +12,21 @@ class CartSaved < ApplicationRecord
   end
 
 
-  # def self.find_by_current_user(user)
-  #   CartSaved.joins(:item, :profile)
-  #           .where(profile_id: user.profile.id)
-  # end
+   scope :find_all_by_company, ->(company){ 
+      joins(:item, :profile)
+      .joins("JOIN companies ON companies.id = profiles.company_id")
+      .where("companies.id = #{company.id}") 
+   }
+
+
+  # SELECT * FROM cart_saveds
+	# join items
+  #   on items.id = cart_saveds.item_id
+  #   join profiles
+  #   on profiles.id = cart_saveds.profile_id
+  #   join companies 
+  #   on companies.id = profiles.company_id
+  #   where companies.id = 1;
 
   def self.find_by_cart_saved(cart_saved) 
     CartSaved.joins(:item, :profile)
