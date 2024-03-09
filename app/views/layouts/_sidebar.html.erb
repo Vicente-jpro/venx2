@@ -59,78 +59,80 @@
           </ul>
         </div>
       </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#company-collapse" aria-expanded="true">
-          Company
-        </button>
-        
-        <div class="collapse show" id="company-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li> 
-            <%= link_to "New...", new_company_path, 
-              class: "link-dark rounded"%> 
-          </li>
+      <% if current_user.profile.adminstrador? %>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#company-collapse" aria-expanded="true">
+            Company
+          </button>
+          
+          <div class="collapse show" id="company-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li> 
-            <%= link_to "List all", companies_path, 
-              class: "link-dark rounded"%> 
-          </li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
-          Category
-        </button>
-        
-        <div class="collapse show" id="category-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li> 
-            <%= link_to "New...", new_category_path, 
-              class: "link-dark rounded"%> 
-          </li>
+              <%= link_to "New...", new_company_path, 
+                class: "link-dark rounded"%> 
+            </li>
+              <li> 
+              <%= link_to "List all", companies_path, 
+                class: "link-dark rounded"%> 
+            </li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+            Category
+          </button>
+          
+          <div class="collapse show" id="category-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li> 
-            <%= link_to "List all", categories_path, 
-              class: "link-dark rounded"%> 
-          </li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sector-collapse" aria-expanded="true">
-          Sector
-        </button>
-        
-        <div class="collapse show" id="sector-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li> 
-            <%= link_to "New...", new_sector_path, 
-              class: "link-dark rounded"%> 
-          </li>
+              <%= link_to "New...", new_category_path, 
+                class: "link-dark rounded"%> 
+            </li>
+              <li> 
+              <%= link_to "List all", categories_path, 
+                class: "link-dark rounded"%> 
+            </li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sector-collapse" aria-expanded="true">
+            Sector
+          </button>
+          
+          <div class="collapse show" id="sector-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li> 
-            <%= link_to "List all", sectors_path, 
-              class: "link-dark rounded"%> 
-          </li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#fornecedor-collapse" aria-expanded="true">
-          Fornecedor
-        </button>
-        
-        <div class="collapse show" id="fornecedor-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li> 
-            <%= link_to "new...", new_supplier_path, 
-              class: "link-dark rounded"%> 
-          </li>
+              <%= link_to "New...", new_sector_path, 
+                class: "link-dark rounded"%> 
+            </li>
+              <li> 
+              <%= link_to "List all", sectors_path, 
+                class: "link-dark rounded"%> 
+            </li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#fornecedor-collapse" aria-expanded="true">
+            Fornecedor
+          </button>
+          
+          <div class="collapse show" id="fornecedor-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li> 
-            <%= link_to "List all", suppliers_path, 
-              class: "link-dark rounded"%> 
-          </li>
-          </ul>
-        </div>
-      </li>
+              <%= link_to "new...", new_supplier_path, 
+                class: "link-dark rounded"%> 
+            </li>
+              <li> 
+              <%= link_to "List all", suppliers_path, 
+                class: "link-dark rounded"%> 
+            </li>
+            </ul>
+          </div>
+        </li>
+      <% end %>
       <li class="mb-1">
         <p>
           <%= link_to "Canselar venda", cancel_cart_temps_path, 

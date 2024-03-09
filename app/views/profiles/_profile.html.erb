@@ -2,10 +2,9 @@
   <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card-body">
           <div class="card-title text-center">
-                 <%= render "image", image_profile: profile.image %>
-              </div>
-              <h4 class="text-center text-pink"><%= profile.name_profile %></h4>
+             <%= render "image", image_profile: profile.image %>
           </div>
+          <h4 class="text-center text-pink"><%= profile.name_profile %></h4>
           <div class="text-center my-2 text-primary-emphasis">
               
               <strong> <%= Profile.human_attribute_name(:gender) %>:</strong> <%= profile.gender %> <br>

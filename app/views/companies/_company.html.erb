@@ -3,9 +3,9 @@
         <div class="card-body">
           <div class="card-title text-center">
                  <%= render "image", image: company.image %>
-              </div>
-              <h4 class="text-center text-pink"><%= company.name %></h4>
           </div>
+          <h4 class="text-center text-pink"><%= company.name %></h4>
+          
           <div class="text-center my-2 text-primary-emphasis">
               
               <strong><%= Company.human_attribute_name(:nif) %>:</strong> <%= company.nif %><br>
