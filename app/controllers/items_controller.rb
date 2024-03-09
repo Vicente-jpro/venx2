@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :redirect_if_is_not_admin!,  only: [ :edit, :update, :destroy, :new ]
 
   include ItemsConcerns
   # GET /items or /items.json
@@ -78,6 +79,12 @@ class ItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
+    end
+
+    def redirect_if_is_not_admin!
+      if !current_user.profile.adminstrador?
+        redirect_to items_url, info: "Authorized only for adminstrator."
+      end
     end
 
     # Only allow a list of trusted parameters through.
