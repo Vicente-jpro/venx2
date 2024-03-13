@@ -63,7 +63,6 @@ class PlansSelectedsController < ApplicationController
   def update
     
     respond_to do |format|
-      debugger
       if @plans_selected.update(plans_selected_params)
         format.html { redirect_to plans_selected_url(@plans_selected), notice: "Plans selected was successfully updated." }
         format.json { render :show, status: :ok, location: @plans_selected }

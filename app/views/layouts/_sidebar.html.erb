@@ -59,6 +59,37 @@
           </ul>
         </div>
       </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#plans-collapse" aria-expanded="true">
+          Plans
+        </button>
+        <div class="collapse show" id="plans-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li> 
+              <%= link_to "New...", new_plan_path, class: "link-dark rounded" %>  
+            </li>
+            <li>
+              <%= link_to "List all", plans_path, class: "link-dark rounded" %>  
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" 
+        data-bs-target="#plans_selected-collapse" aria-expanded="true">
+          Plan Selected
+        </button>
+        <div class="collapse show" id="plans_selected-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li> 
+              <%= link_to "New...", new_plans_selected_path, class: "link-dark rounded" %>  
+            </li>
+            <li>
+              <%= link_to "List all", plans_selecteds_path, class: "link-dark rounded" %>  
+            </li>
+          </ul>
+        </div>
+      </li>
       <% if current_user.profile.adminstrador? %>
         <li class="mb-1">
           <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#company-collapse" aria-expanded="true">
