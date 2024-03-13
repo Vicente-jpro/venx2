@@ -12,3 +12,5 @@ window.$ = jquery
 $(function(){
     console.log("Hello from jquery")
 })
+import "trix"
+import "@rails/actiontext"

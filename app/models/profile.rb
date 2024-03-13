@@ -21,7 +21,7 @@ class Profile < ApplicationRecord
 
   enum gender: { masculine: "MASCULINO", feminine: "FEMININO" }
   enum profile_type: {
-    desenvoldedor: "DESENVOLVEDOR24",
+    super_adminstrador: "SUPER_ADMIN24",
     adminstrador: "ADMINSTRADOR24", 
     funcionario: "FUNCIONARIO"
   }

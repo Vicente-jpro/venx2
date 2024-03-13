@@ -38,14 +38,12 @@
         </div>
     <br/>
 
-
     <button onclick="printPage()", class="btn btn-light print">Print</button>
 
     <script>
-    function printPage() {
-        window.print();
-
-    }
+      function printPage() {
+          window.print();
+      }
     </script>
 
     <table class="table table-hover shadow-sm">
@@ -83,6 +81,8 @@
             <strong class="text-success">Troco:</strong> <%= @invoice_temps.first.customer_change %><br/>
         </div>
       </div>
+
+    <%= link_to "Imprimir Fatura", invoice_temps_path(format: :pdf),  class: "btn btn-success pdf-link"%>
 
   </section>
 
