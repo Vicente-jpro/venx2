@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   resources :sectors
   resources :suppliers
   resources :profiles
+  resources :plans_selecteds
+  resources :plans
+  
   resources :cities, only: [:province] do 
     member do 
       get 'province'

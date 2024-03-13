@@ -166,6 +166,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_144249) do
     t.index ["item_id"], name: "index_most_sales_on_item_id"
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "name_plans"
+    t.integer "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plans_selecteds", force: :cascade do |t|
+    t.integer "day_used", default: 0
+    t.integer "duration"
+    t.boolean "activated", default: false
+    t.boolean "first_time", default: false
+    t.integer "plan_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_plans_selecteds_on_plan_id"
+    t.index ["user_id"], name: "index_plans_selecteds_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "name_profile"
     t.string "whatsapp"
@@ -240,6 +261,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_144249) do
   add_foreign_key "items", "sectors"
   add_foreign_key "items", "suppliers"
   add_foreign_key "most_sales", "items"
+  add_foreign_key "plans_selecteds", "plans"
+  add_foreign_key "plans_selecteds", "users"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "companies"
   add_foreign_key "profiles", "users"
