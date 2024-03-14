@@ -12,13 +12,5 @@ class PlansSelected < ApplicationRecord
                  .where("plans_selecteds.day_used < plans_selecteds.duration and plans_selecteds.company_id = #{company.id}")
                  .take
   end
-
-  
-  #SELECT * FROM plans_selecteds
-	#JOIN companies
-   #	ON companies.id = plans_selecteds.company_id
-   #JOIN profiles
-   # ON profiles.user_id = 2;
-
        
 end

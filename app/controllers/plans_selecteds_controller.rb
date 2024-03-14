@@ -42,10 +42,10 @@ class PlansSelectedsController < ApplicationController
     @plans_selected = PlansSelected.new(plans_selected_params)
     @plans_selected.company_id = company.id
     plan_selected = PlansSelected.find_by_company(company)
-    
-    if !plan_selected.empty?
+   
+    if plan_selected.present?
       @plans_selected = plan_selected
-      redirect_to @plans_selected and return
+      redirect_to @plans_selected, info: "You just have a plan selected." and return
     end
     
     respond_to do |format|
