@@ -6,7 +6,7 @@ class CreatePlansSelecteds < ActiveRecord::Migration[7.0]
       t.boolean :activated, default: false 
       t.boolean :first_time, default: false
       t.references :plan, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
+      t.references :company, null: false, foreign_key: true
 
       t.timestamps
     end
