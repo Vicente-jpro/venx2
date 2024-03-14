@@ -2,8 +2,8 @@
   <div class="col" id="<%= dom_id plans_selected %>">
 
     <th scope="row"> <%= plans_selected.id %></th>
-      <td><%= plans_selected.user.profile.name_profile %></td>
-      <td><%= plans_selected.user.email %></td>
+      <td><%= plans_selected.company.name %></td>
+      <td><%= plans_selected.company.email %></td>
       <td><%= plans_selected.plan.name_plans%></td>
       <td><%= plans_selected.duration %></td>
       <td><%= plans_selected.plan.price %></td>
@@ -15,7 +15,6 @@
         <td class="text-danger"><%= plans_selected.activated %></td>
       <% end %>
       
-
       <% if plans_selected.first_time  %>
         <td class="text-success"><%= plans_selected.first_time %></td>
       <% else %>

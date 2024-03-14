@@ -1,19 +1,24 @@
 class PlansSelected < ApplicationRecord
   belongs_to :plan
-  belongs_to :user
+  belongs_to :company
 
   enum duration: { monthly: 30, quarterly: 90, semiannual: 180,  annual: 360 }
 
-  validates :user, uniqueness: {  message: "User can have only one plan selected." }
+  scope :find_by_company, ->(company) { where(company_id: company.id).take }
 
-
-  scope :find_by_user, ->(user) { where(user_id: user.id) }
-
-  def self.find_plan_selected_by_user(user) 
+  def self.find_plan_selected_by_company(company) 
     PlansSelected.joins(:plan)
-                 .joins(:user)
-                 .where("plans_selecteds.day_used < plans_selecteds.duration and plans_selecteds.user_id = #{user.id}").take
+                 .joins(:company)
+                 .where("plans_selecteds.day_used < plans_selecteds.duration and plans_selecteds.company_id = #{company.id}")
+                 .take
   end
+
+  
+  #SELECT * FROM plans_selecteds
+	#JOIN companies
+   #	ON companies.id = plans_selecteds.company_id
+   #JOIN profiles
+   # ON profiles.user_id = 2;
 
        
 end
