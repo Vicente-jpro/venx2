@@ -51,6 +51,12 @@
           </div>
         </tbody>
       </table>
+      <br/>
+      <% if @invoice_historics.empty? %>
+        <p class="fs-2 text-success text-center">
+          No invoice historic found.
+        </p>
+      <% end %>
          <%= paginate @invoice_historics, window: 2 %>
   </section>
 

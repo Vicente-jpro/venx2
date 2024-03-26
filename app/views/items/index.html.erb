@@ -50,6 +50,12 @@
               </div>
           </tbody>
         </table>
+        <% if @items.empty? %>
+          <p class="fs-2 text-success text-center">
+            No items found.
+          </p>
+        <% end %>
+
         <div >
           <%= paginate @items, window: 2 %>
         </div>

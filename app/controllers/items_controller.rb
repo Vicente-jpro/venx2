@@ -9,7 +9,6 @@ class ItemsController < ApplicationController
     @items = items_searched(params[:query]).page(params[:page])
     if @items.empty?
       @items = Item.all.page(params[:page])
-      redirect_to items_url, info: "No items found."
     end
   end
 
