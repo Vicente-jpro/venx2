@@ -81,7 +81,7 @@ class PlansSelectedsController < ApplicationController
   def destroy
     company ||= current_user.profile.company
     plan_selected = PlansSelected.find_plan_selected_by_company(company)
-
+    debugger
     respond_to do |format|
       if plan_selected.activated 
         format.html { redirect_to plans_selected_url(plan_selected), info: "This Plan is activated. You can not delete." }
