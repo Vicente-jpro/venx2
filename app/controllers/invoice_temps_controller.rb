@@ -46,54 +46,55 @@ class InvoiceTempsController < ApplicationController
 
     plans_selecteds = PlansSelected.find_by_company(profile.company).take
     
-      respond_to do |format|
-        if plans_selecteds.activated
+    respond_to do |format|
+      if plans_selecteds.activated
 
-          if value_delivered_customer < @total_cost
-            format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
-          else 
-            @cart_temps = CartTemp.find_by_current_user(current_user)
+        if value_delivered_customer < @total_cost
+          logger.error ("####### The value entered must be equal to or greater than: #{@total_cost} #######")
+          format.html { redirect_to cart_temps_url, alert: "The value entered must be equal to or greater than: #{@total_cost}" }
+        else 
+          @cart_temps = CartTemp.find_by_current_user(current_user)
 
-            code = GenerateCode.generate
-            date = Time.now
-            @cart_temps.each do |cart| 
+          code = GenerateCode.generate
+          date = Time.now
+          @cart_temps.each do |cart| 
 
-              cart_historic = cart_historic_build(cart, code, profile, date)
-              cart_historic.save
-              
-              @invoice_temp = invoice_temp_build(
-                invoice_temp, 
-                profile, 
-                value_delivered_customer,
-                @total_cost,
-                cart_historic,
-                cart,
-                date
-              )
-              @invoice_temp.save
-
-              @invoice_historic = invoice_historic_build(
-                invoice_temp,
-                profile,
-                @total_cost, date
-              ) 
-              @invoice_historic.save
-            end
-            format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
+            cart_historic = cart_historic_build(cart, code, profile, date)
+            cart_historic.save
             
-            to_day ||= Time.now.day
-            yesterday ||= CartTemp.last.created_at.day 
-            debugger
-            if to_day != yesterday
-              PlansSelected.increment!(:day_used)
-            end
+            @invoice_temp = invoice_temp_build(
+              invoice_temp, 
+              profile, 
+              value_delivered_customer,
+              @total_cost,
+              cart_historic,
+              cart,
+              date
+            )
+            @invoice_temp.save
 
-            CartTemp.destroy_by_user(current_user)
+            @invoice_historic = invoice_historic_build(
+              invoice_temp,
+              profile,
+              @total_cost, date
+            ) 
+            @invoice_historic.save
           end
-        else
-          format.html { redirect_to root_path, info: "Your plan has expired." }
+          format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
+          
+          to_day ||= Time.now.day
+          yesterday ||= CartTemp.last.created_at.day 
+          debugger
+          if to_day != yesterday
+            PlansSelected.increment!(:day_used)
+          end
+
+          CartTemp.destroy_by_user(current_user)
         end
+      else
+        format.html { redirect_to root_path, info: "Your plan has expired." }
       end
+    end
 
   end
 
