@@ -13,7 +13,7 @@
   <% end %>
 
     <%= form.text_field :cliente_name %>
-    <%= form.text_field :value_delivered_customer %>
+    <%= form.number_field :value_delivered_customer %>
     <%= form.select :payment_method, InvoiceTemp.payment_methods, class: 'text-light-emphasis' %>
   
     <div class="d-grid gap-2 my-1">

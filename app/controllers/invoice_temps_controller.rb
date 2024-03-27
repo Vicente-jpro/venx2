@@ -44,8 +44,8 @@ class InvoiceTempsController < ApplicationController
     value_delivered_customer = invoice_temp.value_delivered_customer
     profile ||= Profile.find_by_user(current_user)
 
-    plans_selecteds = PlansSelected.find_by_company(profile.company)
-  
+    plans_selecteds = PlansSelected.find_by_company(profile.company).take
+    
       respond_to do |format|
         if plans_selecteds.activated
 
@@ -80,8 +80,15 @@ class InvoiceTempsController < ApplicationController
               @invoice_historic.save
             end
             format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
-            CartTemp.destroy_by_user(current_user)
             
+            to_day ||= Time.now.day
+            yesterday ||= CartTemp.last.created_at.day 
+            debugger
+            if to_day != yesterday
+              PlansSelected.increment!(:day_used)
+            end
+
+            CartTemp.destroy_by_user(current_user)
           end
         else
           format.html { redirect_to root_path, info: "Your plan has expired." }

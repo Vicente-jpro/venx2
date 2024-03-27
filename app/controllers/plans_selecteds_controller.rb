@@ -80,8 +80,8 @@ class PlansSelectedsController < ApplicationController
   # DELETE /plans_selecteds/1 or /plans_selecteds/1.json
   def destroy
     company ||= current_user.profile.company
-    plan_selected = PlansSelected.find_plan_selected_by_company(company)
-    debugger
+    plan_selected = PlansSelected.find_by_company(company).take
+    
     respond_to do |format|
       if plan_selected.activated 
         format.html { redirect_to plans_selected_url(plan_selected), info: "This Plan is activated. You can not delete." }
