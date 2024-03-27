@@ -46,6 +46,17 @@ class InvoiceTempsController < ApplicationController
 
     plans_selecteds = PlansSelected.find_by_company(profile.company).take
     
+    # Update used day
+    to_day ||= Time.now.day
+    yesterday ||= InvoiceHistoric.last.created_at.day if InvoiceHistoric.last.present?
+    
+    if !yesterday.nil?
+      debugger
+      if to_day != yesterday
+        PlansSelected.increment!(:day_used)
+      end
+    end
+
     respond_to do |format|
       if plans_selecteds.activated
 
@@ -82,12 +93,8 @@ class InvoiceTempsController < ApplicationController
           end
           format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
           
-          to_day ||= Time.now.day
-          yesterday ||= CartTemp.last.created_at.day 
-          debugger
-          if to_day != yesterday
-            PlansSelected.increment!(:day_used)
-          end
+          
+         
 
           CartTemp.destroy_by_user(current_user)
         end

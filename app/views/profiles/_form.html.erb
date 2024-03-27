@@ -31,7 +31,7 @@
                class: 'text-light-emphasis'%>  
               <%= form.select :gender, Profile.genders, {label: :gender}, class: 'text-light-emphasis'%>
 
-              <%= form.select :profile_type, Profile.profile_types, 
+              <%= form.select :profile_type, profile_previleges(current_user), 
                 {label: Profile.human_attribute_name(:profile_type)}, class: 'text-light-emphasis' %>
 
               <%= form.telephone_field :whatsapp, label: Profile.human_attribute_name(:whatsapp), 
