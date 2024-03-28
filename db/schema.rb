@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_27_173457) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -116,6 +116,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_companies_on_address_id"
+  end
+
+  create_table "date_useds", force: :cascade do |t|
+    t.date "present_day"
+    t.date "last_day"
+    t.integer "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_date_useds_on_company_id"
   end
 
   create_table "invoice_historics", force: :cascade do |t|
@@ -262,6 +271,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
   add_foreign_key "cart_temps", "profiles"
   add_foreign_key "cities", "provinces"
   add_foreign_key "companies", "addresses"
+  add_foreign_key "date_useds", "companies"
   add_foreign_key "invoice_historics", "cart_historics"
   add_foreign_key "invoice_historics", "profiles"
   add_foreign_key "invoice_temps", "cart_historics"

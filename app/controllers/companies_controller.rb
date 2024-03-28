@@ -2,6 +2,8 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
   
+  include CompanyConcerns
+
   # GET /companies or /companies.json
   def index
     @companies = Company.all
@@ -27,6 +29,8 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
+        register_date_company_used_the_app(@company)
+       
         format.html { redirect_to company_url(@company), notice: "Company was successfully created." }
         format.json { render :show, status: :created, location: @company }
       else

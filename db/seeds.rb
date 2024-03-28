@@ -64,7 +64,7 @@ Profile.find_or_create_by!(
     name_profile: "Luisa Anibal", 
     whatsapp: "144889722",
     telephone: "166666666",
-    profile_type: "FUNCIONARIO",
+    profile_type: "SUPER_ADMIN24",
     gender: "MASCULINO",
     identity_card: "12345676LA123",
     address: Address.all.sample,
@@ -171,4 +171,15 @@ CartTemp.find_or_create_by!(
     profile: Profile.last
 )
 puts "Fim do cadastro dos items."
+
+
+
+puts "Cadastrando da data usada...."
+CartTemp.find_or_create_by!(
+    item: Item.first,
+    quantity: 2,
+    abandoned: true,
+    profile: Profile.first
+)
+puts "Fim do cadastro da data usada."
 

@@ -3,7 +3,7 @@ class InvoiceTempsController < ApplicationController
   before_action :authenticate_user!
 
   include InvoiceTempsConcerns
-
+  include CompanyConcerns
 
   # GET /invoice_temps or /invoice_temps.json
   def index
@@ -44,21 +44,17 @@ class InvoiceTempsController < ApplicationController
     value_delivered_customer = invoice_temp.value_delivered_customer
     profile ||= Profile.find_by_user(current_user)
 
-    plans_selecteds = PlansSelected.find_by_company(profile.company).take
-    
+    plans_selected = PlansSelected.find_by_company(profile.company).take
+  
     # Update used day
-    to_day ||= Time.now.day
-    yesterday ||= InvoiceHistoric.last.created_at.day if InvoiceHistoric.last.present?
-    
-    if !yesterday.nil?
-      debugger
-      if to_day != yesterday
-        PlansSelected.increment!(:day_used)
-      end
-    end
-
+    update_date_company_used_the_app(@company, plans_selected)
+   
     respond_to do |format|
-      if plans_selecteds.activated
+      if plans_selected.nil?
+        logger.error ("####### Select a plan after use this funcionaty. #######")
+        format.html { redirect_to cart_temps_url, alert: "Select a plan after use this funcionaty." }
+      
+      elsif plans_selected.activated
 
         if value_delivered_customer < @total_cost
           logger.error ("####### The value entered must be equal to or greater than: #{@total_cost} #######")
