@@ -29,5 +29,4 @@ module CompanyConcerns
     debugger
   end
 
-
 end

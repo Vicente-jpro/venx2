@@ -89,9 +89,6 @@ class InvoiceTempsController < ApplicationController
           end
           format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
           
-          
-         
-
           CartTemp.destroy_by_user(current_user)
         end
       else
