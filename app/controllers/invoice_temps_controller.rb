@@ -47,7 +47,7 @@ class InvoiceTempsController < ApplicationController
     plans_selected = PlansSelected.find_by_company(profile.company).take
   
     # Update used day
-    update_date_company_used_the_app(@company, plans_selected)
+    update_date_company_used_the_app(profile.company, plans_selected)
    
     respond_to do |format|
       if plans_selected.nil?
