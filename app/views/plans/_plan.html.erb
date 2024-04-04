@@ -4,12 +4,14 @@
     <td scope="col"><%= plan.sign_date %></td>
     <td scope="col"><%= plan.expiration_date %></td>
     <td scope="col"><%= plan.company.name %></td>
-    <td>
-      <%= button_to "Destroy", plan, method: :delete, class:"btn btn-danger btn-sm",
-      form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este item?"} } %>
-    </td>
-    <td>
-      <%= link_to "Edit", edit_plan_path(plan), class:"btn btn-success btn-sm" %>
-    </td>
+    <% if current_user.profile.super_adminstrador? %>
+      <td>
+        <%= button_to "Destroy", plan, method: :delete, class:"btn btn-danger btn-sm",
+        form:{ data: { turbo_confirm: "Tens a certeza que pretendes eliminar este item?"} } %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_plan_path(plan), class:"btn btn-success btn-sm" %>
+      </td>
+    <% end %>
 </div>
 
