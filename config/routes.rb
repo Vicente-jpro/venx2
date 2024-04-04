@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :plans
   root "home#index"
 
   get 'most_sales/index'
