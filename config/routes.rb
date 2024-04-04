@@ -41,8 +41,6 @@ Rails.application.routes.draw do
   resources :invoice_temps
   resources :invoice_historics
   resources :profiles
-  resources :plans_selecteds
-  resources :plans
   resources :sectors
   resources :suppliers
 
