@@ -1,7 +1,9 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  
+
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_company
+
   include CompanyConcerns
 
   # GET /companies or /companies.json
@@ -67,6 +69,11 @@ class CompaniesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_company
       @company = Company.find(params[:id])
+    end
+    
+    def invalid_company
+      logger.error "Invalid company #{params[:id]}"
+      redirect_to plans_url, info: "Invalid company."
     end
 
     # Only allow a list of trusted parameters through.
