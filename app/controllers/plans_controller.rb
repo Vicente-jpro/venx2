@@ -10,11 +10,6 @@ class PlansController < ApplicationController
   def show
   end
 
-  # GET /plans/new
-  def new
-    @plan = Plan.new
-  end
-
   # GET /plans/1/edit
   def edit
   end
