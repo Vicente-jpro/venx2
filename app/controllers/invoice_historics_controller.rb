@@ -2,13 +2,13 @@ class InvoiceHistoricsController < ApplicationController
   before_action :set_invoice_historic, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
   include InvoiceHistoricsConcerns
+
   # GET /invoice_historics or /invoice_historics.json
   def index
-    @invoice_historics = search_by_date(params[:data_inicio], params[:data_fim])
+    @invoice_historics ||= search_by_date(params[:data_inicio], params[:data_fim])
                             .page(params[:page])
     if  @invoice_historics.empty?
-      @invoice_historics = Item.all.page(params[:page])
-      redirect_to invoice_historics_url, info: "No invoice historic found."
+      @invoice_historics ||= Item.all.page(params[:page])
     end
   end
 

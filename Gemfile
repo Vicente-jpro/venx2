@@ -53,7 +53,7 @@ gem 'rails-i18n', '~> 7.0.0'
 gem "kaminari", "~> 1.2"
 gem "pdfkit", "~> 0.8.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
-
+gem 'whenever', '~> 1.0' , require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

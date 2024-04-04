@@ -13,9 +13,9 @@
             <strong>NIF:</strong> <%= @profile.company.nif %> <br/>
           </div>
           <div class="col">
-            <p class="text-center">  
-              <img src="Java-Logo.jpg" alt="" srcset="" style="width: 200px; height: 100px;">
-            </p>
+          <div class="card-title text-center">
+             <%= render "image", image_company:  @profile.company.image %>
+          </div>
             <p class="text-center">
 
               <%= @profile.company.name %> <br/>

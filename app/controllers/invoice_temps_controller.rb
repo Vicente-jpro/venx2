@@ -3,7 +3,7 @@ class InvoiceTempsController < ApplicationController
   before_action :authenticate_user!
 
   include InvoiceTempsConcerns
-
+  include CompanyConcerns
 
   # GET /invoice_temps or /invoice_temps.json
   def index
@@ -42,14 +42,25 @@ class InvoiceTempsController < ApplicationController
     invoice_temp = InvoiceTemp.new(invoice_temp_params)
     @total_cost = CartTemp.total_cost(current_user)
     value_delivered_customer = invoice_temp.value_delivered_customer
+    profile ||= Profile.find_by_user(current_user)
 
+    if profile.nil?
+      return profile_new_path 
+    end
+
+    plan = Plan.find_by_company(profile.company).take
+    
     respond_to do |format|
-      if value_delivered_customer < @total_cost
-        format.html { redirect_to new_invoice_temp_path(invoice_temp), alert: "The value entered must be equal to or greater than: #{@total_cost}" }
+      if is_expired?(plan)
+        logger.error ("####### Select a plan after use this funcionaty. #######")
+        format.html { redirect_to cart_temps_url, alert: "Select a plan after use this funcionaty." }
+      
+      elsif value_delivered_customer < @total_cost
+          logger.error ("####### The value entered must be equal to or greater than: #{@total_cost} #######")
+          format.html { redirect_to cart_temps_url, alert: "The value entered must be equal to or greater than: #{@total_cost}" }
       else 
         @cart_temps = CartTemp.find_by_current_user(current_user)
 
-        profile ||= Profile.find_by_user(current_user)
         code = GenerateCode.generate
         date = Time.now
         @cart_temps.each do |cart| 
@@ -75,13 +86,11 @@ class InvoiceTempsController < ApplicationController
           ) 
           @invoice_historic.save
         end
-
         format.html { redirect_to invoice_temps_path, notice: "Invoice temp was successfully created." }
+        
         CartTemp.destroy_by_user(current_user)
-         
       end
     end
-
   end
 
   # PATCH/PUT /invoice_temps/1 or /invoice_temps/1.json

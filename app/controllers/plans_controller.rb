@@ -1,13 +1,9 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [ :index ]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_plan
 
   # GET /plans or /plans.json
   def index
     @plans = Plan.all
-    @plans_selected = PlansSelected.new
   end
 
   # GET /plans/1 or /plans/1.json
@@ -53,21 +49,15 @@ class PlansController < ApplicationController
 
   # DELETE /plans/1 or /plans/1.json
   def destroy
-    @plan.destroy
+    @plan.destroy!
 
     respond_to do |format|
-      format.html { redirect_to plans_url(locale: I18n.locale), notice: "Plan was successfully destroyed." }
+      format.html { redirect_to plans_url, notice: "Plan was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-
-    def invalid_plan
-      logger.error "Attemped to access invalid Plan #{params[:id]}"
-      redirect_to plans_url(locale: I18n.locale), info: "Invalid Plan."
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_plan
       @plan = Plan.find(params[:id])
@@ -75,6 +65,6 @@ class PlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plan_params
-      params.require(:plan).permit(:name_plans, :price, :description, :activated, :first_time)
+      params.require(:plan).permit(:sign_date, :expiration_date, :company_id)
     end
 end

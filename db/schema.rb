@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_04_101310) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -177,24 +177,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.string "name_plans"
-    t.integer "price", default: 0
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "plans_selecteds", force: :cascade do |t|
-    t.integer "day_used", default: 0
-    t.integer "duration"
-    t.boolean "activated", default: false
-    t.boolean "first_time", default: false
-    t.integer "plan_id", null: false
+    t.date "sign_date"
+    t.date "expiration_date"
     t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_plans_selecteds_on_company_id"
-    t.index ["plan_id"], name: "index_plans_selecteds_on_plan_id"
+    t.index ["company_id"], name: "index_plans_on_company_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -271,8 +259,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_123543) do
   add_foreign_key "items", "sectors"
   add_foreign_key "items", "suppliers"
   add_foreign_key "most_sales", "items"
-  add_foreign_key "plans_selecteds", "companies"
-  add_foreign_key "plans_selecteds", "plans"
+  add_foreign_key "plans", "companies"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "companies"
   add_foreign_key "profiles", "users"

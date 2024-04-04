@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
   before_action :set_profile_by_user, only: [ :new, :update ]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_profile
 
   include ProfilesConcerns
 
@@ -85,6 +86,11 @@ class ProfilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])
+    end
+
+    def invalid_profile
+      logger.error "Invalid cart #{params[:id]}"
+      redirect_to cart_temps_url, info: "Não foi encontrado um perfil relacionado com usuário ou empresa."
     end
     
     def set_profile_by_user

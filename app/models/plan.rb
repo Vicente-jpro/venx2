@@ -1,3 +1,5 @@
 class Plan < ApplicationRecord
-    has_many :plans_selected
+  belongs_to :company
+
+  scope :find_by_company, ->(company) { find_by(company_id: company.id)}
 end

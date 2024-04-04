@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  get 'most_sales/index'
-  
+  resources :plans
   root "home#index"
-  
-  resources :invoice_historics
+
+  get 'most_sales/index'
+ 
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :companies
-  resources :invoice_temps
   resources :cart_saveds, only: [:destroy, :show, :index, :create, :recover_sale] do
     member do 
       get 'recover_sale'
@@ -32,18 +30,21 @@ Rails.application.routes.draw do
       get 'add_cart'
     end 
   end 
-  resources :categories
-  resources :sectors
-  resources :suppliers
-  resources :profiles
-  resources :plans_selecteds
-  resources :plans
-  
+
   resources :cities, only: [:province] do 
     member do 
       get 'province'
     end
   end
+
+  resources :categories
+  resources :companies
+  resources :invoice_temps
+  resources :invoice_historics
+  resources :profiles
+  resources :sectors
+  resources :suppliers
+
 
   devise_for :users, controllers: {registrations: "registrations"}
 
