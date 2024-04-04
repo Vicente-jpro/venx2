@@ -1,14 +1,36 @@
-<p style="color: green"><%= notice %></p>
+    
+    <!-- Plans index-->
+    <h5 class="fs-3 text-center">Plans</h5>
 
-<h1>Plans</h1>
+    <section>
+      <table class="table table-hover shadow-sm">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Data Assinatura</th>
+              <th scope="col">Data Expiração</th>
+              <th scope="col">Empresa</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+              <div id="plans">
+                  <% @plans.each do |plan| %>
+                    <tr>
+                      <%= render plan %>
+                    </tr>
+                  <% end %>
+              </div>
+          </tbody>
+        </table>
+        <% if @plans.empty? %>
+          <p class="fs-2 text-success text-center">
+            No Plans found.
+          </p>
+        <% end %>
+    </section>
 
-<div id="plans">
-  <% @plans.each do |plan| %>
-    <%= render plan %>
-    <p>
-      <%= link_to "Show this plan", plan %>
-    </p>
-  <% end %>
-</div>
+    <!-- Fim Plans index-->
 
-<%= link_to "New plan", new_plan_path %>
+
