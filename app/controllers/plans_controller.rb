@@ -1,18 +1,22 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /plans or /plans.json
   def index
-    @plans = Plan.all
+    profile ||= current_user.profile
+
+    if profile.super_adminstrador?
+      @plans ||= Plan.all
+    else
+      @plans ||= Plan.find_by_company(profile.company)
+    end
   end
 
   # GET /plans/1 or /plans/1.json
   def show
-  end
-
-  # GET /plans/new
-  def new
-    @plan = Plan.new
   end
 
   # GET /plans/1/edit
@@ -63,6 +67,11 @@ class PlansController < ApplicationController
       @plan = Plan.find(params[:id])
     end
 
+    def invalid_cart
+      logger.error "Invalid cart #{params[:id]}"
+      redirect_to plans_url, info: "Invalid cart."
+    end
+    
     # Only allow a list of trusted parameters through.
     def plan_params
       params.require(:plan).permit(:sign_date, :expiration_date, :company_id)

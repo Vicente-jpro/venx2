@@ -1,10 +1,36 @@
-<p style="color: green"><%= notice %></p>
+    
+    <!-- Plans index-->
+    <h5 class="fs-3 text-center">Plans</h5>
 
-<%= render @plan %>
+    <section>
 
-<div>
-  <%= link_to "Edit this plan", edit_plan_path(@plan) %> |
-  <%= link_to "Back to plans", plans_path %>
+    <div>
+      <%= link_to "Back to plans", plans_path %>
+    </div>
+      <table class="table table-hover shadow-sm">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Data Assinatura</th>
+              <th scope="col">Data Expiração</th>
+              <th scope="col">Empresa</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+              <div id="plans">
+                <tr>
+                  <%= render @plan %>
+                </tr>
+              </div>
+          </tbody>
+        </table>
+    </section>
 
-  <%= button_to "Destroy this plan", @plan, method: :delete %>
-</div>
+    <!-- Fim Plans index-->
+
+
+
+
+
