@@ -8,4 +8,11 @@ module CompanyConcerns
         company: company
       )
     end 
+
+    def is_expired?(plan)
+      date = PlanExpiration.new(Time.now)
+      is_expired = date.is_expired?(plan.expiration_date)
+
+      is_expired
+    end
 end

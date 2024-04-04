@@ -4,6 +4,6 @@ class Company < ApplicationRecord
   
   has_many :profiles 
   has_one_attached :image
-  has_one :plan_selected
+  has_one :plan
   has_one :profile
 end
