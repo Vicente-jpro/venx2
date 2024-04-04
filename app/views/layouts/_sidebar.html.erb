@@ -71,7 +71,7 @@
           </ul>
         </div>
       </li>
-      <% if current_user.profile.adminstrador? || current_user.profile.super_adminstrador? %>
+      <% if current_user.profile.super_adminstrador? %>
         <li class="mb-1">
           <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#company-collapse" aria-expanded="true">
             Company
