@@ -1,9 +1,10 @@
 class CartTempsController < ApplicationController
   before_action :set_cart_temp, only: %i[ show update destroy ]
   before_action :authenticate_user!
+  
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   include CartTempsConcerns
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /cart_temps or /cart_temps.json
   def index
