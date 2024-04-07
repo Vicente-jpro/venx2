@@ -2,7 +2,15 @@
 <div id="<%= dom_id item %>">
     <th scope="row"><%= item.item_code %></th>
     <td scope="col"><%= item.description %></td>
-    <td scope="col"><%= item.quantity %></td>
+    <% if item.quantity > 10 %>
+      <td scope="col"> 
+        <span class="text-success"><%= item.quantity %></span> 
+      </td>
+    <% else %>
+      <td scope="col"> 
+        <span class="text-danger"><%= item.quantity %></span> 
+      </td>
+    <% end %>
     <td scope="col">14%</td>
     <td scope="col"><%= item.price %></td>
     <td scope="col"><%= item.category.name_category %></td>
