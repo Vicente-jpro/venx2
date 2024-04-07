@@ -5,21 +5,45 @@
        <%= form_with url: "/invoice_historics", method: :get do |form| %>
        
         <div class="row">
+          
           <div class="col-sm-2">
             <%= form.label :data_inicio %> <br/>
             <%= form.date_field :data_inicio, label: "Data inicio", class: "form-control"%>
-          
           </div>
           <div class="col-sm-2">
             <%= form.label :data_fim %> <br/>
-            <%= form.date_field :data_fim, label: "Data Fim", class: "form-control"%>
-            
+            <%= form.date_field :data_fim, label: "Data Fim", class: "form-control"%>  
           </div>
           <div class="col-sm-2"> 
             <div class="d-grid gap-2 my-4">
               <%= form.submit "Search", class:"btn btn-warning" %> 
             </div>
           </div>
+
+        </div>
+
+      <% end %>
+
+      
+      <%= form_with url: "/invoice_historics/destroy_until", method: :get do |form| %>
+       
+       <p class="text-danger">Eliminar historico apartir de uma data</p>
+        <div class="row">
+          
+          <div class="col-sm-2">
+            <%= form.label :data_inicio %> <br/>
+            <%= form.date_field :data_inicio, label: "Data inicio", class: "form-control"%>
+          </div>
+          <div class="col-sm-2">
+            <%= form.label :data_fim %> <br/>
+            <%= form.date_field :data_fim, label: "Data Fim", class: "form-control"%>  
+          </div>
+          <div class="col-sm-2"> 
+            <div class="d-grid gap-2 my-4">
+              <%= form.submit "Delete", class:"btn btn-danger" %> 
+            </div>
+          </div>
+
         </div>
 
       <% end %>

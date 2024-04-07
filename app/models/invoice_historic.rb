@@ -1,5 +1,6 @@
 class InvoiceHistoric < ApplicationRecord
   max_paginates_per 20
+  
   belongs_to :profile
   belongs_to :cart_historic
 
@@ -8,7 +9,8 @@ class InvoiceHistoric < ApplicationRecord
                    .where("cart_historics.code_cart = #{invoice_historic.cart_historic.code_cart}")
   end
 
-  scope :search_by_date, ->(data_inicio, data_fim) { 
+  scope :search_by_date, ->(data_inicio, data_fim) {
     where(created_at: (data_inicio)..data_fim)
   }
+
 end

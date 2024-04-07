@@ -40,7 +40,11 @@ Rails.application.routes.draw do
   resources :categories
   resources :companies
   resources :invoice_temps
-  resources :invoice_historics
+  resources :invoice_historics do 
+    collection do 
+      get 'destroy_until'
+    end
+  end
   resources :profiles
   resources :plans, except: [:new]  
   resources :sectors
