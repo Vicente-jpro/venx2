@@ -65,6 +65,18 @@ class InvoiceHistoricsController < ApplicationController
     end
   end
 
+  # DELETE /invoice_historics/1 or /invoice_historics/1.json
+  def destroy_until 
+    cart_historic ||= CartHistoric.search_by_date(params[:data_inicio], params[:data_fim])
+    
+    if cart_historic.empty?
+      redirect_to invoice_historics_url, info: "No invoice historic was found in this date to delete."
+    else 
+      cart_historic.destroy_all
+     redirect_to invoice_historics_url, notice: "Invoice historic Deleted successfuly."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice_historic

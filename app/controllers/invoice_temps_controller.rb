@@ -48,7 +48,7 @@ class InvoiceTempsController < ApplicationController
       return profile_new_path 
     end
 
-    plan = Plan.find_by_company(profile.company).take
+    plan = Plan.find_by_company(profile.company)
     
     respond_to do |format|
       if is_expired?(plan)
