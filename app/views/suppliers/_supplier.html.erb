@@ -16,7 +16,8 @@
 
               <strong><%= Supplier.human_attribute_name(:whatsapp) %>: <%= supplier.whatsapp %>
               <strong><%= Supplier.human_attribute_name(:telephone) %>: <%= supplier.telephone %>
-        
+              <br/>
+              <strong class="text-success">ID: <%= supplier.id %>
           </div>
           <div class="mb-3 d-grid gap-2">
               <%= link_to t("links.edit"), edit_supplier_path(supplier), class: "btn btn-info" %>

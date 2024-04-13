@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :items do 
     collection do 
       get 'add_cart'
+      post 'import_exel'
     end 
   end 
 

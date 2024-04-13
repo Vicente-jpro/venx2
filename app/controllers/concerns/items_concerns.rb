@@ -10,4 +10,9 @@ module ItemsConcerns
     @items
   end
 
+
+  def is_csv_or_ods_file?(content_type)
+    ("ods" == content_type) || ("csv" == content_type)
+  end
+  
 end

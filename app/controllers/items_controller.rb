@@ -19,6 +19,15 @@ class ItemsController < ApplicationController
       redirect_to add_cart_items_url, info: "No items found."
     end
   end
+
+  def import_exel
+    file = FileFormat.new(params[:file])
+    content_type = file.get_content_type
+    debugger
+    return redirect_to items_path, 
+      info: "Only files with format .ods or .csv" if !is_csv_or_ods_file?(content_type)
+  end
+
   # GET /items/1 or /items/1.json
   def show
   end

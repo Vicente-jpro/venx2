@@ -41,7 +41,14 @@ class InvoiceTempsController < ApplicationController
   def create
     invoice_temp = InvoiceTemp.new(invoice_temp_params)
     @total_cost = CartTemp.total_cost(current_user)
-    value_delivered_customer = invoice_temp.value_delivered_customer
+
+    value_delivered_customer = invoice_temp.value_delivered_customer 
+
+    if invoice_temp.value_delivered_customer.nil? || (@total_cost == 0)
+      return redirect_to cart_temps_url, 
+        info: "Deve selecionar um item e colocar o valor pago pelo cliente."
+    end
+
     profile ||= Profile.find_by_user(current_user)
 
     if profile.nil?
