@@ -1,0 +1,73 @@
+<!-- PWA Install Prompt -->
+<div id="pwa-install-prompt" class="alert alert-info alert-dismissible fade" role="alert" style="display: none;">
+  <div class="d-flex align-items-center">
+    <div class="flex-grow-1">
+      <strong>📱 Install Venx2</strong>
+      <p class="mb-0 small">Install this app on your device for quick access and offline use.</p>
+    </div>
+    <button type="button" class="btn btn-sm btn-primary ms-3" id="pwa-install-button">
+      Install
+    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<script>
+  // Show install prompt when available
+  let deferredPrompt;
+  const installPrompt = document.getElementById('pwa-install-prompt');
+  const installButton = document.getElementById('pwa-install-button');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    // Show the install prompt
+    if (installPrompt) {
+      installPrompt.style.display = 'block';
+      installPrompt.classList.add('show');
+    }
+  });
+
+  // Handle install button click
+  if (installButton) {
+    installButton.addEventListener('click', async () => {
+      if (!deferredPrompt) {
+        return;
+      }
+
+      // Show the install prompt
+      deferredPrompt.prompt();
+      
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      console.log(`User response to the install prompt: ${outcome}`);
+      
+      // Hide the install prompt
+      if (installPrompt) {
+        installPrompt.style.display = 'none';
+        installPrompt.classList.remove('show');
+      }
+      
+      // Clear the deferredPrompt
+      deferredPrompt = null;
+    });
+  }
+
+  // Listen for app installed event
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA was installed');
+    
+    // Hide the install prompt
+    if (installPrompt) {
+      installPrompt.style.display = 'none';
+      installPrompt.classList.remove('show');
+    }
+    
+    // Clear the deferredPrompt
+    deferredPrompt = null;
+  });
+</script>

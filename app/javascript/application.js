@@ -4,6 +4,7 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 import "./custom"
 import "./sidebars"
+import "./pwa"
 import jquery from "jquery"
 
 window.jQuery = jquery 
