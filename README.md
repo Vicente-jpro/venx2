@@ -128,6 +128,15 @@ See `/public/icons/README.md` for detailed instructions.
 3. Check "Manifest" and "Service Workers" sections
 4. Run Lighthouse audit for PWA compliance
 
+### 🪟 Windows Installation
+Users can install this app on Windows through:
+- **Browser installation**: Edge or Chrome (see [WINDOWS_INSTALL.md](WINDOWS_INSTALL.md))
+- **Microsoft Store**: Package and publish (see [WINDOWS_PACKAGING.md](WINDOWS_PACKAGING.md))
+
+The installed app appears in Start Menu and can be pinned to taskbar like any Windows application.
+
 ### 📝 More Information
-For detailed PWA documentation, see [PWA_README.md](PWA_README.md).
+- **PWA Documentation**: [PWA_README.md](PWA_README.md)
+- **Windows User Guide**: [WINDOWS_INSTALL.md](WINDOWS_INSTALL.md)
+- **Windows Packaging**: [WINDOWS_PACKAGING.md](WINDOWS_PACKAGING.md)
 
