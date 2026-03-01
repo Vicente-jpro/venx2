@@ -2,6 +2,24 @@
 
 This application is a **Progressive Web App (PWA)** with offline support and installability on mobile and desktop devices.
 
+## Windows Installation
+
+**Windows users can use our automated installer:**
+
+1. Download `Venx2-Setup-1.0.0.exe`
+2. Run the installer (it installs all dependencies automatically)
+3. Click the desktop icon to start the application
+
+📖 **See [WINDOWS_INSTALL.md](WINDOWS_INSTALL.md)** for detailed installation instructions
+
+🔧 **For developers building the installer:** See [INSTALLER_BUILD_GUIDE.md](INSTALLER_BUILD_GUIDE.md)
+
+---
+
+## Development Setup
+
+For developers who want to run from source:
+
 ## Prerequisites
 
 - Ruby 3.2.1
