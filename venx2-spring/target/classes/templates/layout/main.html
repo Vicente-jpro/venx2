@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venx2 - Sales Management</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { min-height: 100vh; background: #343a40; }
+        .sidebar a { color: #adb5bd; text-decoration: none; display: block; padding: 8px 16px; border-radius: 4px; }
+        .sidebar a:hover, .sidebar a.active { color: #fff; background: #495057; }
+        .sidebar .nav-section { color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding: 12px 16px 4px; }
+        .main-content { min-height: 100vh; }
+        .navbar-brand { font-weight: bold; font-size: 1.4rem; }
+        .badge-cart { position: relative; top: -8px; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-warning" th:href="@{/}">
+                <i class="bi bi-shop"></i> Venx2
+            </a>
+            <div class="d-flex align-items-center ms-auto gap-3">
+                <sec:authorize access="isAuthenticated()">
+                    <a th:href="@{/cart-temps}" class="btn btn-outline-warning btn-sm position-relative">
+                        🛒 Cart
+                        <span th:if="${cartCount != null and cartCount > 0}"
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                              th:text="${cartCount}">0</span>
+                    </a>
+                    <span class="text-light small" sec:authentication="name"></span>
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                    </form>
+                </sec:authorize>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar py-3 d-none d-md-block">
+                <div class="nav-section">Menu</div>
+                <a th:href="@{/}" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active' : ''}">🏠 Dashboard</a>
+                <a th:href="@{/items}" th:classappend="${#httpServletRequest.requestURI.startsWith('/items') ? 'active' : ''}">📦 Items</a>
+                <a th:href="@{/cart-temps}" th:classappend="${#httpServletRequest.requestURI.startsWith('/cart-temps') ? 'active' : ''}">
+                    🛒 Cart
+                    <span th:if="${cartCount != null and cartCount > 0}" class="badge bg-danger ms-1" th:text="${cartCount}"></span>
+                </a>
+                <a th:href="@{/invoice-historics}" th:classappend="${#httpServletRequest.requestURI.startsWith('/invoice-historics') ? 'active' : ''}">🧾 Invoices</a>
+                <a th:href="@{/cart-saveds}" th:classappend="${#httpServletRequest.requestURI.startsWith('/cart-saveds') ? 'active' : ''}">💾 Saved Carts</a>
+
+                <div class="nav-section mt-3">Management</div>
+                <a th:href="@{/profiles}" th:classappend="${#httpServletRequest.requestURI.startsWith('/profiles') ? 'active' : ''}">👤 Profiles</a>
+                <a th:href="@{/suppliers}" th:classappend="${#httpServletRequest.requestURI.startsWith('/suppliers') ? 'active' : ''}">🏭 Suppliers</a>
+                <a th:href="@{/categories}" th:classappend="${#httpServletRequest.requestURI.startsWith('/categories') ? 'active' : ''}">🏷️ Categories</a>
+                <a th:href="@{/sectors}" th:classappend="${#httpServletRequest.requestURI.startsWith('/sectors') ? 'active' : ''}">📁 Sectors</a>
+
+                <div class="nav-section mt-3">Admin</div>
+                <a th:href="@{/companies}" th:classappend="${#httpServletRequest.requestURI.startsWith('/companies') ? 'active' : ''}">🏢 Companies</a>
+                <a th:href="@{/plans}" th:classappend="${#httpServletRequest.requestURI.startsWith('/plans') ? 'active' : ''}">📋 Plans</a>
+                <a th:href="@{/h2-console}" target="_blank" class="mt-2">🗄️ DB Console</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content py-4">
+                <!-- Flash messages -->
+                <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${success}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <th:block th:replace="${content}"/>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

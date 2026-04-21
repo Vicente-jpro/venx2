@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: layout(~{::content})}">
+<body><content th:fragment="content">
+    <div class="d-flex justify-content-between mb-4">
+        <h2 th:text="${category.id != null ? '✏️ Edit Category' : '➕ New Category'}"></h2>
+        <a th:href="@{/categories}" class="btn btn-outline-secondary">← Back</a>
+    </div>
+    <div class="card"><div class="card-body">
+        <form th:action="${category.id != null ? '/categories/' + category.id + '/update' : '/categories'}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="mb-3"><label class="form-label fw-bold">Name *</label>
+                <input type="text" name="nameCategory" class="form-control" th:value="${category.nameCategory}" required></div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a th:href="@{/categories}" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div></div>
+</content></body></html>

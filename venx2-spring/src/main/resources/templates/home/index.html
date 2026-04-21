@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: layout(~{::content})}">
+<body>
+<content th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📊 Dashboard</h2>
+        <span class="text-muted" th:if="${profile != null}" th:text="'Welcome, ' + ${profile.nameProfile}"></span>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary">🛒 Cart Items</h5>
+                    <h2 th:text="${cartCount != null ? cartCount : 0}">0</h2>
+                    <a th:href="@{/cart-temps}" class="btn btn-primary btn-sm">View Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success">📦 Products</h5>
+                    <p class="card-text">Manage your inventory</p>
+                    <a th:href="@{/items}" class="btn btn-success btn-sm">View Items</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-warning">🧾 Invoices</h5>
+                    <p class="card-text">Sales history</p>
+                    <a th:href="@{/invoice-historics}" class="btn btn-warning btn-sm">View Invoices</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" th:if="${mostSales != null and !#lists.isEmpty(mostSales)}">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">🏆 Most Sold Items</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Quantity Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ms, iter : ${mostSales}">
+                        <td th:text="${iter.count}"></td>
+                        <td th:text="${ms.item != null ? ms.item.description : 'N/A'}"></td>
+                        <td><span class="badge bg-success" th:text="${ms.quantity}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</content>
+</body>
+</html>
