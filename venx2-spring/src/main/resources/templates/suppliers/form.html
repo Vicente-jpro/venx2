@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: layout(~{::content})}">
+<body><content th:fragment="content">
+    <div class="d-flex justify-content-between mb-4">
+        <h2 th:text="${supplier.id != null ? '✏️ Edit Supplier' : '➕ New Supplier'}"></h2>
+        <a th:href="@{/suppliers}" class="btn btn-outline-secondary">← Back</a>
+    </div>
+    <div class="card"><div class="card-body">
+        <form th:action="${supplier.id != null ? '/suppliers/' + supplier.id + '/update' : '/suppliers'}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold">Name *</label>
+                    <input type="text" name="nameSupplier" class="form-control" th:value="${supplier.nameSupplier}" required></div>
+                <div class="col-md-3"><label class="form-label">WhatsApp</label>
+                    <input type="text" name="whatsapp" class="form-control" th:value="${supplier.whatsapp}"></div>
+                <div class="col-md-3"><label class="form-label">Telephone</label>
+                    <input type="text" name="telephone" class="form-control" th:value="${supplier.telephone}"></div>
+                <div class="col-md-6"><label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" th:value="${supplier.email}"></div>
+                <div class="col-12"><button type="submit" class="btn btn-success">Save</button>
+                    <a th:href="@{/suppliers}" class="btn btn-outline-secondary ms-2">Cancel</a></div>
+            </div>
+        </form>
+    </div></div>
+</content></body></html>

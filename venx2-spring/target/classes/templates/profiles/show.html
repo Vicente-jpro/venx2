@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: layout(~{::content})}">
+<body>
+<content th:fragment="content">
+    <div class="d-flex justify-content-between mb-4">
+        <h2>👤 Profile Details</h2>
+        <div>
+            <a th:href="@{/profiles/{id}/edit(id=${targetProfile.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{/profiles}" class="btn btn-outline-secondary ms-2">← Back</a>
+        </div>
+    </div>
+    <div class="card"><div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Name:</strong><p th:text="${targetProfile.nameProfile}"></p></div>
+            <div class="col-md-4"><strong>Type:</strong><p><span class="badge bg-primary" th:text="${targetProfile.profileType}"></span></p></div>
+            <div class="col-md-4"><strong>Gender:</strong><p th:text="${targetProfile.gender}"></p></div>
+            <div class="col-md-4"><strong>WhatsApp:</strong><p th:text="${targetProfile.whatsapp}"></p></div>
+            <div class="col-md-4"><strong>Telephone:</strong><p th:text="${targetProfile.telephone}"></p></div>
+            <div class="col-md-4"><strong>Identity Card:</strong><p th:text="${targetProfile.identityCard}"></p></div>
+            <div class="col-md-6"><strong>Company:</strong><p th:text="${targetProfile.company != null ? targetProfile.company.name : '-'}"></p></div>
+            <div class="col-md-6"><strong>Email:</strong><p th:text="${targetProfile.user != null ? targetProfile.user.email : '-'}"></p></div>
+        </div>
+    </div></div>
+</content>
+</body>
+</html>
