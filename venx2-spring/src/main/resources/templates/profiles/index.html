@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: layout(~{::content})}">
+<body>
+<content th:fragment="content">
+    <h2 class="mb-4">👤 Profiles</h2>
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr><th>Name</th><th>Type</th><th>Company</th><th>Whatsapp</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${profiles}">
+                        <td th:text="${p.nameProfile}"></td>
+                        <td><span class="badge bg-primary" th:text="${p.profileType}"></span></td>
+                        <td th:text="${p.company != null ? p.company.name : '-'}"></td>
+                        <td th:text="${p.whatsapp}"></td>
+                        <td>
+                            <a th:href="@{/profiles/{id}(id=${p.id})}" class="btn btn-sm btn-outline-info">View</a>
+                            <a th:href="@{/profiles/{id}/edit(id=${p.id})}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</content>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Venx2</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}">
+    <style>
+        body { background: linear-gradient(135deg, #343a40 0%, #495057 100%); min-height: 100vh; display: flex; align-items: center; }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h4 class="mb-0">🛒 Venx2 - Register</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+                    <form th:action="@{/register}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" name="nameProfile" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Password</label>
+                            <input type="password" name="password" class="form-control" minlength="8" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Company</label>
+                            <select name="companyId" class="form-select">
+                                <option value="">-- Select Company --</option>
+                                <option th:each="c : ${companies}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100">Register</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <small>Already have an account? <a th:href="@{/login}">Login here</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
